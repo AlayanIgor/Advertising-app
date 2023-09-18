@@ -1,0 +1,28 @@
+.main-centralize-container {
+  width: 1296px;
+  margin-bottom: 80px;
+}
+
+.main-centralize-container h3 {
+  margin-bottom: -8px;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  color: #1e293b;
+}
+
+.main-content-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Я сделал у всех карточек отступ справа 24 пикселя,
+// а у 4го хочу 0, чтобы помещалось в контейнер и в обычном макете это работало,
+// а тут почему то не работает
+// если что, чтобы меньше искать, css самого компонента на ходится в shared components ad
+
+.ad:nth-child(4n) {
+  margin-right: 0px;
+}

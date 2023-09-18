@@ -1,0 +1,70 @@
+.header-top-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 1296px;
+  height: 52px;
+  background: #1e293b;
+}
+
+.top-section-centralize-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 1296px;
+  height: 36px;
+}
+
+.login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 52px;
+  margin-right: 24px;
+  padding: 8px 10px;
+  gap: 8px;
+  background: #1e293b;
+  border: none;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: #28354b;
+}
+
+.login-button p {
+  margin-right: 5px;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #fff;
+}
+
+.new-ad-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 183px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background: #3b82f6;
+  cursor: pointer;
+}
+
+.new-ad-button:hover {
+  background: #4b8ef8;
+}
+
+.new-ad-button p {
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  color: #fff;
+}
