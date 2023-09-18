@@ -1,6 +1,10 @@
 <div class="main-centralize-container">
   <h3>Рекомендации для вас</h3>
   <div class="main-content-container">
-    <app-ad *ngFor="let ad of ads" class="ad"></app-ad>
+    <app-ad
+      [routerLink]="['/main/ad', id]"
+      *ngFor="let ad of ads; let id = index"
+      class="ad"
+    ></app-ad>
   </div>
 </div>
