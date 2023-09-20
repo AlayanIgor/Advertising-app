@@ -31,14 +31,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'categories',
-    title: 'Категории',
-    loadChildren: () =>
-      import('./pages/categories-page/categories-page.module').then(
-        (m) => m.CategoriesPageModule
-      ),
-  },
-  {
     path: 'auth',
     title: 'Вход',
     loadChildren: () =>

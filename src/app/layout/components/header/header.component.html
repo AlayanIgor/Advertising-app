@@ -1,2 +1,5 @@
-<app-top-section></app-top-section>
-<app-search-section></app-search-section>
+<app-top-section [hideCategories]="hideCategories"></app-top-section>
+<app-search-section
+  (categoriesShow)="showCategories()"
+  [hideCategories]="hideCategories"
+></app-search-section>

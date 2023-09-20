@@ -1,0 +1,12 @@
+<div class="layout">
+  <div class="main-centralize-container">
+    <app-categories-sidebar
+      (selectCategory)="selectCategory($event)"
+      [categories]="categories"
+    ></app-categories-sidebar>
+    <app-categories-main
+      [categories]="categories"
+      [currentCategory]="currentCategory"
+    ></app-categories-main>
+  </div>
+</div>

@@ -1,2 +1,9 @@
-<app-header></app-header>
-<app-main></app-main>
+<app-header
+  (categoriesShow)="showCategories()"
+  [hideCategories]="hideCategories"
+></app-header>
+<app-categories
+  (hideCategories)="hideCategoriesBlock()"
+  *ngIf="!hideCategories"
+></app-categories>
+<app-main> </app-main>
