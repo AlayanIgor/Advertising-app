@@ -1,10 +1,10 @@
 .main-centralize-container {
-  width: 1296px;
+  min-width: 1296px;
   margin-bottom: 80px;
 }
 
 .main-centralize-container h3 {
-  margin-bottom: -8px;
+  margin-bottom: 16px;
   font-family: Inter;
   font-size: 24px;
   font-style: normal;
@@ -15,6 +15,16 @@
 
 .main-content-container {
   display: flex;
+  flex-direction: row;
+}
+
+.content-section {
+  width: 966px;
+}
+
+.ads {
+  display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   margin-right: -24px;
 }

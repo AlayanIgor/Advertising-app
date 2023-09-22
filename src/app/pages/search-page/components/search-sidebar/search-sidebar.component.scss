@@ -1,0 +1,40 @@
+.categories-section {
+  display: flex;
+  flex-direction: column;
+  width: 306px;
+  margin-right: 24px;
+}
+
+.categories-section p {
+  color: #1e293b;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+
+.categories-section-list {
+  margin-bottom: 16px;
+}
+
+.categories-section-list li {
+  margin-bottom: 8px;
+  color: #3b82f6;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.categories-sublist {
+  margin-top: 5px;
+  margin-left: 32px;
+}
+
+.categories-sublist li {
+  cursor: pointer;
+}

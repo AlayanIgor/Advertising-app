@@ -38,6 +38,24 @@ const routes: Routes = [
         (m) => m.AuthPageModule
       ),
   },
+  {
+    path: 'search',
+    title: 'Поиск',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/search-page/search-page.module').then(
+            (m) => m.SearchPageModule
+          ),
+      },
+      {
+        path: 'ad/:id',
+        loadChildren: () =>
+          import('./pages/ad-page/ad-page.module').then((m) => m.AdPageModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({

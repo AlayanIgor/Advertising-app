@@ -1,0 +1,8 @@
+<form class="price-form">
+  <p>Цена</p>
+  <input type="number" placeholder="Цена от" (input)="setMinPrice($event)" />
+
+  <input type="number" placeholder="до руб." (input)="setMaxPrice($event)" />
+  <span *ngIf="incorrectValues">Введите правильную цену</span>
+  <button (click)="checkValues()" type="submit">Показать объявления</button>
+</form>

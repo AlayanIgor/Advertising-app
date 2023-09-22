@@ -1,0 +1,18 @@
+<div class="main-centralize-container">
+  <h3>Объявления по запросу «попугаи»</h3>
+  <div class="main-content-container">
+    <app-search-sidebar
+      (selectedCategory)="selectedCategory($event)"
+      [allCategories]="allCategories"
+    ></app-search-sidebar>
+    <div class="content-section">
+      <app-sorting></app-sorting>
+      <div class="ads">
+        <app-ad
+          [routerLink]="['/search/ad', id]"
+          *ngFor="let ad of ads; let id = index"
+        ></app-ad>
+      </div>
+    </div>
+  </div>
+</div>
