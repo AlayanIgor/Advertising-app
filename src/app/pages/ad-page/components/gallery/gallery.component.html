@@ -1,0 +1,9 @@
+<div class="ad-visual-section">
+  <h3>Macbook pro 13 2020 m1 8/256</h3>
+  <div class="ad-main-img"><img src="{{ currentImage }}" /></div>
+  <ul class="ad-img-list">
+    <li (click)="setCurrentImage(i)" *ngFor="let img of images; let i = index">
+      <img src="{{ img.url }}" />
+    </li>
+  </ul>
+</div>

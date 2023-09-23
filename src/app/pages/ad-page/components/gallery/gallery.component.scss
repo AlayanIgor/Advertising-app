@@ -1,0 +1,46 @@
+.ad-visual-section {
+  display: flex;
+  flex-direction: column;
+  width: 856px;
+  margin-right: 24px;
+}
+
+.ad-visual-section h3 {
+  margin-bottom: 12px;
+  color: #1e293b;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.ad-main-img {
+  width: 856px;
+  height: 512px;
+  margin-bottom: 24px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.ad-img-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.ad-img-list li {
+  width: 120px;
+  height: 84px;
+  margin-right: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 1s;
+}
+
+.ad-img-list li:hover {
+  transform: scale(1.05);
+}

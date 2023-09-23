@@ -1,1 +1,16 @@
-<p>ad-page works!</p>
+<div class="main-centralize-container">
+  <ul class="breadcrumbs">
+    <li>Севастополь •</li>
+    <li>Электроника •</li>
+    <li>Ноутбуки •</li>
+    <li>Аpple</li>
+  </ul>
+  <div class="ad-section">
+    <app-phone-number
+      *ngIf="showPhone"
+      (hidePhoneNumber)="hidePhoneNumber()"
+    ></app-phone-number>
+    <app-gallery></app-gallery>
+    <app-description (showPhoneNumber)="showPhoneNumber()"></app-description>
+  </div>
+</div>
