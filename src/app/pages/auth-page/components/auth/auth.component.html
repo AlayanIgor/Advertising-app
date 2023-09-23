@@ -1,2 +1,11 @@
-<p>auth works!</p>
-<a [routerLink]="['/auth', 'registr']">Регистрация</a>
+<div>
+  <p class="auth">Авторизация</p>
+  <form>
+    <input class="phone" type="phone" placeholder="Номер телефона" />
+    <input class="pass" type="password" placeholder="Пароль" />
+    <label> <input class="checkbox" type="checkbox" /> Запомнить меня </label>
+    <span>Забыли пароль?</span>
+    <button class="login">Войти</button>
+    <a [routerLink]="['/auth', 'registr']">Зарегистрироваться</a>
+  </form>
+</div>
