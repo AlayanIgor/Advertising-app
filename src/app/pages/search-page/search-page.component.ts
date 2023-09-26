@@ -1,12 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
+import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
 
 @Component({
   selector: 'app-search-page',
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss'],
 })
-export class SearchPageComponent {
-  ads = [1, 2, 3, 4, 5, 6, 7, 8];
+export class SearchPageComponent implements OnInit {
+  ads: Advert[] = [];
+  searchValue!: string;
+  numberOfAdverts = 0;
+
+  constructor(private _advertService: AdvertService) {}
+
+  ngOnInit() {
+    this._advertService.searchValue$.subscribe((value: any) => {
+      this.searchValue = value;
+    });
+    this._advertService.searchAdverts$.subscribe((adverts: any) => {
+      this.ads = adverts;
+      this.numberOfAdverts = adverts.length;
+    });
+  }
 
   allCategories = [
     {
@@ -79,6 +95,5 @@ export class SearchPageComponent {
   choosedCategory!: string;
   selectedCategory(selectedCategory: string) {
     this.choosedCategory = selectedCategory;
-    console.log(this.choosedCategory);
   }
 }

@@ -10,6 +10,8 @@ import { SearchSectionComponent } from './layout/components/header/components/se
 import { CategoriesComponent } from './layout/components/header/components/categories/categories.component';
 import { CategoriesSidebarComponent } from './layout/components/header/components/categories/components/categories-sidebar/categories-sidebar.component';
 import { CategoriesMainComponent } from './layout/components/header/components/categories/components/categories-main/categories-main.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,7 @@ import { CategoriesMainComponent } from './layout/components/header/components/c
     CategoriesSidebarComponent,
     CategoriesMainComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

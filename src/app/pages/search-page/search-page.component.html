@@ -1,16 +1,19 @@
 <div class="main-centralize-container">
-  <h3>Объявления по запросу «попугаи»</h3>
+  <h3>Объявления по запросу {{ searchValue }}</h3>
   <div class="main-content-container">
     <app-search-sidebar
       (selectedCategory)="selectedCategory($event)"
       [allCategories]="allCategories"
     ></app-search-sidebar>
     <div class="content-section">
-      <app-sorting></app-sorting>
+      <app-sorting [findedAdverts]="numberOfAdverts"></app-sorting>
       <div class="ads">
+        <h3 *ngIf="!ads.length">
+          К сожалению, по вашему запросу ничего не найдено
+        </h3>
         <app-ad
-          [routerLink]="['/search/ad', id]"
-          *ngFor="let ad of ads; let id = index"
+          [routerLink]="['/search/ad', ad.id]"
+          *ngFor="let ad of ads"
         ></app-ad>
       </div>
     </div>

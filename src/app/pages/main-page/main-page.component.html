@@ -2,8 +2,8 @@
   <h3>Рекомендации для вас</h3>
   <div class="main-content-container">
     <app-ad
-      [routerLink]="['/main/ad', id]"
-      *ngFor="let ad of ads; let id = index"
+      [routerLink]="['/main/ad', ad.id]"
+      *ngFor="let ad of allAdverts"
     ></app-ad>
   </div>
 </div>

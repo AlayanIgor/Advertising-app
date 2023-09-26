@@ -39,12 +39,15 @@
 
     <form>
       <input
+        (input)="setSearchValue($event)"
+        [value]="searchValue"
         class="header-search-input"
         type="text"
         placeholder="Поиск по объявлениям"
+        maxlength="150"
       />
 
-      <button type="button" routerLink="/search" class="header-search-button">
+      <button type="button" (click)="search()" class="header-search-button">
         <p>Найти</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
