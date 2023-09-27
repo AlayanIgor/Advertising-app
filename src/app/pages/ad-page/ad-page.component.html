@@ -9,8 +9,12 @@
     <app-phone-number
       *ngIf="showPhone"
       (hidePhoneNumber)="hidePhoneNumber()"
+      [currentAdvert]="currentAdvert"
     ></app-phone-number>
     <app-gallery></app-gallery>
-    <app-description (showPhoneNumber)="showPhoneNumber()"></app-description>
+    <app-description
+      (showPhoneNumber)="showPhoneNumber()"
+      [currentAdvert]="currentAdvert"
+    ></app-description>
   </div>
 </div>

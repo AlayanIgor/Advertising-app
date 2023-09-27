@@ -1,16 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
+
+import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
 
 @Component({
   selector: 'app-ad',
   templateUrl: './ad.component.html',
   styleUrls: ['./ad.component.scss'],
 })
-export class AdComponent implements OnInit {
-  @Input() ad!: any;
-  constructor(private _route: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    console.log(this.ad);
-  }
+export class AdComponent {
+  @Input() ad!: Advert;
 }

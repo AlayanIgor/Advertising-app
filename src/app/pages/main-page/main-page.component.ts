@@ -16,6 +16,7 @@ export class MainPageComponent implements OnInit {
     this._advertService.getAllAdverts();
     this._advertService.allAdverts$.subscribe((adverts: any) => {
       this.allAdverts = adverts;
+      this._advertService.loadedAdverts = adverts;
     });
   }
 }

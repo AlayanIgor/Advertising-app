@@ -4,6 +4,7 @@
     <app-ad
       [routerLink]="['/main/ad', ad.id]"
       *ngFor="let ad of allAdverts"
+      [ad]="ad"
     ></app-ad>
   </div>
 </div>

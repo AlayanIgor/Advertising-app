@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
 
 @Component({
   selector: 'app-phone-number',
@@ -6,6 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./phone-number.component.scss'],
 })
 export class PhoneNumberComponent {
+  @Input() currentAdvert!: Advert;
   @Output() hidePhoneNumber = new EventEmitter();
   hidePhone() {
     this.hidePhoneNumber.emit();
