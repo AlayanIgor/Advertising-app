@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
 
@@ -9,13 +11,13 @@ import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.i
 })
 export class SearchPageComponent implements OnInit {
   ads: Advert[] = [];
-  searchValue!: string;
+  searchValue = this._advertService.searchValue;
   numberOfAdverts = 0;
 
   constructor(private _advertService: AdvertService) {}
 
   ngOnInit() {
-    this._advertService.searchValue$.subscribe((value: any) => {
+    this._advertService.valueOfSearch$.subscribe((value: any) => {
       this.searchValue = value;
     });
     this._advertService.searchAdverts$.subscribe((adverts: any) => {

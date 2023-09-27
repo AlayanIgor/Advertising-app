@@ -10,7 +10,8 @@ import { AdvertApiService } from './advert-api.service';
 export class AdvertService {
   searchAdverts$ = new Subject();
   allAdverts$ = new Subject();
-  searchValue$ = new Subject();
+  searchValue!: string;
+  valueOfSearch$ = new Subject();
   constructor(private _advertApiService: AdvertApiService) {}
 
   search(searchValue: string) {
@@ -18,7 +19,7 @@ export class AdvertService {
       search: searchValue,
       showNonActive: true,
     };
-    this.searchValue$.next(searchValue);
+    this.valueOfSearch$.next(searchValue);
     this._advertApiService.getAdverts(searchRequest).subscribe((searchData) => {
       this.searchAdverts$.next(searchData);
     });

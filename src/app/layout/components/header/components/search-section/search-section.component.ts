@@ -22,6 +22,7 @@ export class SearchSectionComponent {
   search() {
     if (this.searchValue) {
       this._advertService.search(this.searchValue);
+      this._advertService.searchValue = this.searchValue;
       this._router.navigate(['/search']);
       this.searchValue = '';
     }

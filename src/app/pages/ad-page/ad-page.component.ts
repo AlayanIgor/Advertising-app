@@ -24,7 +24,6 @@ export class AdPageComponent implements OnInit {
         .getAdvertById(params['id'])
         .subscribe((advert: any) => {
           this.currentAdvert = advert;
-          console.log(this.currentAdvert);
         });
     });
   }
