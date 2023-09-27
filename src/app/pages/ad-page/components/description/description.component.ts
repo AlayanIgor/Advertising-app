@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
+import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/currentAdvert.interface';
 
 @Component({
   selector: 'app-description',
@@ -7,7 +8,7 @@ import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.i
   styleUrls: ['./description.component.scss'],
 })
 export class DescriptionComponent {
-  @Input() currentAdvert!: Advert;
+  @Input() currentAdvert!: CurrentAdvert;
   @Output() showPhoneNumber = new EventEmitter();
 
   showPhone() {

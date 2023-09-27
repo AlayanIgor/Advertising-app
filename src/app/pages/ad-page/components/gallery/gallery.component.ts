@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/currentAdvert.interface';
 
 @Component({
   selector: 'app-gallery',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent {
+  @Input() currentAdvert!: CurrentAdvert;
   images = [
     {
       url: 'https://s3-alpha-sig.figma.com/img/e242/7235/6f9adfc7a058c7f485d505c587645f95?Expires=1696204800&Signature=C1aZQxvfOWcarV1o3Mkd7yzXQKh9lj0lFZPhfOIDY8vDeY7s-vKxkPJEGEx-ylu0gA3S6KqdNyEJhhr-r3lLgyktRvvXlyBah80KZuXk7P-BAy3Nqm-wCI~bHdmAdfzL2q3hy37-kL9Ssgk2WHe50ALpkWN936qiftKrY7vHZ9z9uBrnlROztAgCpaomVURaOwdW724pQrN9F7MFKljd4NBnQ-R-5KO0~RaTY5DP1MaZ-MUDJj4-~NHJJvdHloBHGa0myqlK9CbgZH3ymQTPYUCsBp4davcHxnh9MUyOIIXCOjsanOmy6cDYdklmHWMEdO2-Oo0Ew6bi8lvzG6QmoQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',

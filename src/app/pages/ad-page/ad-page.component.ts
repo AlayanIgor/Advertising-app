@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
-import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
+import { AdvertApiService } from 'src/app/core/services/advert-service/advert-api.service';
+import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/currentAdvert.interface';
 
 @Component({
   selector: 'app-ad-page',
@@ -11,16 +11,21 @@ import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.i
 export class AdPageComponent implements OnInit {
   showPhone = false;
 
-  currentAdvert!: any;
+  currentAdvert!: CurrentAdvert;
 
   constructor(
     private _route: ActivatedRoute,
-    private _advertService: AdvertService
+    private _advertApiService: AdvertApiService
   ) {}
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
-      this.currentAdvert = this._advertService.getById(params['id']);
+      this._advertApiService
+        .getAdvertById(params['id'])
+        .subscribe((advert: any) => {
+          this.currentAdvert = advert;
+          console.log(this.currentAdvert);
+        });
     });
   }
 

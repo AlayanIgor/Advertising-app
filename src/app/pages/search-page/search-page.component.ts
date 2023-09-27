@@ -21,7 +21,6 @@ export class SearchPageComponent implements OnInit {
     this._advertService.searchAdverts$.subscribe((adverts: any) => {
       this.ads = adverts;
       this.numberOfAdverts = adverts.length;
-      this._advertService.loadedAdverts = adverts;
     });
   }
 

@@ -11,7 +11,6 @@ export class AdvertService {
   searchAdverts$ = new Subject();
   allAdverts$ = new Subject();
   searchValue$ = new Subject();
-  loadedAdverts: Advert[] = [];
   constructor(private _advertApiService: AdvertApiService) {}
 
   search(searchValue: string) {
@@ -22,7 +21,6 @@ export class AdvertService {
     this.searchValue$.next(searchValue);
     this._advertApiService.getAdverts(searchRequest).subscribe((searchData) => {
       this.searchAdverts$.next(searchData);
-      console.log(searchData);
     });
   }
   getAllAdverts() {
@@ -33,9 +31,5 @@ export class AdvertService {
     this._advertApiService.getAdverts(searchRequest).subscribe((data) => {
       this.allAdverts$.next(data);
     });
-  }
-
-  getById(id: string) {
-    return this.loadedAdverts.find((advert) => advert.id === id);
   }
 }

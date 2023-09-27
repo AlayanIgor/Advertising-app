@@ -1,5 +1,5 @@
 <div class="ad-info-section">
-  <h3>80 000 ₽</h3>
+  <h3>{{ currentAdvert.cost.toLocaleString() }} ₽</h3>
   <button (click)="showPhone()" class="ad-numder-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
     <p>Показать номер телефона</p>
   </button>
   <p>Адрес</p>
-  <p class="ad-info-description">Севатосполь, ул. Гоголя, 33Б</p>
+  <p class="ad-info-description">{{ currentAdvert.location }}</p>
   <a>
     <p>
       Открыть на карте
@@ -44,8 +44,6 @@
   </a>
   <p>Описание</p>
   <p class="ad-info-description">
-    Продается MacBook Pro 13 8/256 <br />Сам ноутбук в отличном состоянии,
-    количество циклов перезарядки 123, в комплекте: коробка,ноутбук,блок,кабель
-    и чек!
+    {{ currentAdvert.description }}
   </p>
 </div>
