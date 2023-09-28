@@ -1,11 +1,55 @@
-<div>
+<div class="form">
   <p class="auth">Авторизация</p>
-  <form>
-    <input class="phone" type="phone" placeholder="Номер телефона" />
-    <input class="pass" type="password" placeholder="Пароль" />
+  <form [formGroup]="form" (ngSubmit)="sumbit()">
+    <div
+      class="validators"
+      *ngIf="form.get('login')?.invalid && form.get('login')?.touched"
+    >
+      <small *ngIf="form.get('login')?.errors?.['required']"
+        >Обязательное поле</small
+      >
+      <small *ngIf="form.get('login')?.errors?.['minlength']"
+        >Логин должен быть не меньше 4 символов</small
+      >
+    </div>
+    <input
+      class="login"
+      type="text"
+      placeholder="Логин"
+      formControlName="login"
+      maxlength="63"
+    />
+    <div
+      class="passValidators"
+      *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+    >
+      <small *ngIf="form.get('password')?.errors?.['required']"
+        >Обязательное поле</small
+      >
+      <small *ngIf="form.get('password')?.errors?.['minlength']"
+        >Пароль должен быть не меньше 8 символов</small
+      >
+    </div>
+    <input
+      class="pass"
+      type="password"
+      placeholder="Пароль"
+      formControlName="password"
+      maxlength="50"
+    />
+
     <label> <input class="checkbox" type="checkbox" /> Запомнить меня </label>
     <span>Забыли пароль?</span>
-    <button class="login">Войти</button>
+    <button
+      [ngClass]="{
+        loginBtn: !form.invalid,
+        invalid: form.invalid
+      }"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Войти
+    </button>
     <a [routerLink]="['/auth', 'registr']">Зарегистрироваться</a>
   </form>
 </div>

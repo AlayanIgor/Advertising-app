@@ -1,9 +1,70 @@
-<div>
+<div class="form">
   <p class="auth">Регистрация</p>
-  <form>
-    <input class="phone" type="phone" placeholder="Номер телефона" />
-    <input class="name" type="text" placeholder="Имя" />
-    <input class="pass" type="password" placeholder="Пароль" />
-    <button class="registr">Зарегистрироваться</button>
+  <form [formGroup]="form" (ngSubmit)="sumbit()">
+    <div
+      class="validators"
+      *ngIf="form.get('login')?.invalid && form.get('login')?.touched"
+    >
+      <small *ngIf="form.get('login')?.errors?.['required']"
+        >Обязательное поле</small
+      >
+      <small *ngIf="form.get('login')?.errors?.['minlength']"
+        >Логин должен быть не меньше 4 символов</small
+      >
+    </div>
+    <input
+      class="login"
+      type="text"
+      placeholder="Логин"
+      formControlName="login"
+      maxlength="63"
+    />
+    <div
+      class="validators"
+      *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+    >
+      <small *ngIf="form.get('name')?.errors?.['required']"
+        >Обязательное поле</small
+      >
+      <small *ngIf="form.get('name')?.errors?.['minlength']"
+        >Имя должно быть не меньше 4 символов</small
+      >
+    </div>
+    <input
+      class="name"
+      type="text"
+      placeholder="Имя"
+      formControlName="name"
+      maxlength="63"
+    />
+    <div
+      class="passValidators"
+      *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+    >
+      <small *ngIf="form.get('password')?.errors?.['required']"
+        >Обязательное поле</small
+      >
+      <small *ngIf="form.get('logpasswordin')?.errors?.['minlength']"
+        >Пароль должен быть не меньше 8 символов</small
+      >
+    </div>
+    <input
+      class="pass"
+      type="password"
+      placeholder="Пароль"
+      formControlName="password"
+      maxlength="50"
+    />
+
+    <button
+      [ngClass]="{
+        registr: !form.invalid,
+        invalid: form.invalid
+      }"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Зарегистрироваться
+    </button>
   </form>
 </div>
