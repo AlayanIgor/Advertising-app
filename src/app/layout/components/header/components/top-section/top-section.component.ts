@@ -1,10 +1,31 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-top-section',
   templateUrl: './top-section.component.html',
   styleUrls: ['./top-section.component.scss'],
 })
-export class TopSectionComponent {
+export class TopSectionComponent implements OnInit {
   @Input() hideCategories!: boolean;
+
+  login!: any;
+  showUserNavigate = false;
+  constructor(private _authService: AuthService, private _router: Router) {}
+
+  ngOnInit(): void {
+    this._authService.isLoggedOn$.subscribe((value) => {
+      this.login = value;
+    });
+  }
+
+  showNavigate() {
+    this.showUserNavigate = !this.showUserNavigate;
+  }
+
+  logout() {
+    this._authService.logout();
+    this.showUserNavigate = false;
+  }
 }

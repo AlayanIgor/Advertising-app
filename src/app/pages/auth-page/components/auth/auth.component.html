@@ -1,4 +1,12 @@
-<div class="form">
+<div *ngIf="error" class="error">
+  <p>Упс...Что-то пошло не так</p>
+  <ul>
+    <li>1. Проверьте правильность логина и пароля</li>
+    <li>2. Возможно наш сервер временно не работает</li>
+    <li class="again" (click)="resetError()">Попробовать снова</li>
+  </ul>
+</div>
+<div *ngIf="!error" class="form">
   <p class="auth">Авторизация</p>
   <form [formGroup]="form" (ngSubmit)="sumbit()">
     <div

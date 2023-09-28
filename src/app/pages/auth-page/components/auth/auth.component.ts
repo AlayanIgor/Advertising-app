@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,8 +9,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
   form!: FormGroup;
+  error!: any;
+  constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {
+    this._authService.error$.subscribe((error) => {
+      this.error = error;
+    });
     this.form = new FormGroup({
       login: new FormControl('', [
         Validators.minLength(4),
@@ -26,7 +32,11 @@ export class AuthComponent implements OnInit {
 
   sumbit() {
     let formData = { ...this.form.value };
-    console.log(formData);
+    this._authService.login(formData);
     this.form.reset();
+  }
+
+  resetError() {
+    this.error = '';
   }
 }

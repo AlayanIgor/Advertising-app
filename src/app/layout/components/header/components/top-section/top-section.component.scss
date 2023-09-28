@@ -68,3 +68,37 @@
   line-height: 20px;
   color: #fff;
 }
+
+.userNavigate {
+  position: absolute;
+  top: 45px;
+  right: 490px;
+  padding: 8px 12px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 5px 5px 19px 4px rgba(0, 0, 0, 0.47);
+  z-index: 20;
+}
+
+.userNavigate li {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2px 0px;
+  color: #1e293b;
+  text-align: right;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.userNavigate li:hover {
+  background: #ececec;
+}
+
+.userNavigate li:nth-child(3) {
+  color: red;
+}

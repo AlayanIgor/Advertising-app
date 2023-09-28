@@ -1,4 +1,16 @@
-<div class="form">
+<div *ngIf="error" class="error">
+  <p>Упс...Что-то пошло не так</p>
+  <ul>
+    <li>1. Возможно пользователь с таким login уже существует</li>
+    <li>2. Или наш сервер временно не работает</li>
+    <li><a (click)="resetEror()">Попробуйте еще раз</a></li>
+  </ul>
+</div>
+<div *ngIf="successfulRegistr" class="auth">
+  Регистрация прошла успешно.
+  <a routerLink="/auth">Авторизироваться</a>
+</div>
+<div *ngIf="!successfulRegistr && !error" class="form">
   <p class="auth">Регистрация</p>
   <form [formGroup]="form" (ngSubmit)="sumbit()">
     <div

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthApiService } from 'src/app/core/services/auth-service/auth-api.service';
 
 @Component({
   selector: 'app-registr',
@@ -8,6 +9,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegistrComponent implements OnInit {
   form!: FormGroup;
+
+  successfulRegistr!: any;
+  error!: any;
+
+  constructor(private _authApiService: AuthApiService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -31,7 +37,14 @@ export class RegistrComponent implements OnInit {
 
   sumbit() {
     let formData = { ...this.form.value };
-    console.log(formData);
+    this._authApiService.registration(formData).subscribe(
+      (response) => (this.successfulRegistr = response),
+      (error) => (this.error = error)
+    );
     this.form.reset();
+  }
+
+  resetEror() {
+    this.error = '';
   }
 }
