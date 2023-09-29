@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class TopSectionComponent implements OnInit {
 
   login!: any;
   showUserNavigate = false;
-  constructor(private _authService: AuthService, private _router: Router) {}
+  constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {
     this._authService.isLoggedOn$.subscribe((value) => {

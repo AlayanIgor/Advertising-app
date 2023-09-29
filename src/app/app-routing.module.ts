@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {
     path: 'new-ad',
     title: 'Новое объявление',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./pages/new-ad-page/new-ad-page.module').then(
         (m) => m.NewAdPageModule
@@ -55,6 +57,10 @@ const routes: Routes = [
           import('./pages/ad-page/ad-page.module').then((m) => m.AdPageModule),
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: '/main',
   },
 ];
 

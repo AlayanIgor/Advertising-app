@@ -12,7 +12,8 @@ import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.i
 export class SearchPageComponent implements OnInit {
   ads: Advert[] = [];
   searchValue = this._advertService.searchValue;
-  numberOfAdverts = 0;
+  numberOfAdverts!: number;
+  nothingFinded = 1;
 
   constructor(private _advertService: AdvertService) {}
 
@@ -23,6 +24,7 @@ export class SearchPageComponent implements OnInit {
     this._advertService.searchAdverts$.subscribe((adverts: any) => {
       this.ads = adverts;
       this.numberOfAdverts = adverts.length;
+      this.nothingFinded = adverts.length;
     });
   }
 

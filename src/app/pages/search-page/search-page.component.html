@@ -1,5 +1,5 @@
 <div class="main-centralize-container">
-  <h3>Объявления по запросу {{ searchValue }}</h3>
+  <h3>Объявления по запросу: {{ searchValue }}</h3>
   <div class="main-content-container">
     <app-search-sidebar
       (selectedCategory)="selectedCategory($event)"
@@ -8,7 +8,7 @@
     <div class="content-section">
       <app-sorting [findedAdverts]="numberOfAdverts"></app-sorting>
       <div class="ads">
-        <h3 *ngIf="!ads.length">
+        <h3 *ngIf="!nothingFinded">
           К сожалению, по вашему запросу ничего не найдено
         </h3>
         <app-ad
