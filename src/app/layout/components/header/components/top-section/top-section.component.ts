@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 import { User } from 'src/app/core/services/user-service/interfaces/user.interface';
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/core/services/user-service/user.service';
 })
 export class TopSectionComponent implements OnInit {
   @Input() hideCategories!: boolean;
-  currentUser!: User;
+  currentUser$ = new Subject();
   login!: any;
   showUserNavigate = false;
   constructor(
@@ -23,9 +24,10 @@ export class TopSectionComponent implements OnInit {
     this._authService.isLoggedOn$.subscribe((value) => {
       this.login = value;
     });
-    // this._userSevice.currentUser$.subscribe((user: any) => {
-    //   this.currentUser = user;
-    // });
+    this._userSevice.currentUser$.subscribe((user: any) => {
+      let currentUserName = user.name;
+      this.currentUser$.next(currentUserName);
+    });
   }
 
   showNavigate() {

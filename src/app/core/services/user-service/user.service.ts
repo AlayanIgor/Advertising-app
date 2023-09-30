@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserApiService } from './user-api.service';
 import { Subject } from 'rxjs';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -10,9 +9,12 @@ export class UserService {
 
   constructor(private _userApiService: UserApiService) {}
 
-  getCurrentUser(id: string) {
-    this._userApiService.getUserById(id).subscribe((user: any) => {
-      this.currentUser$.next(user);
+  getCurrentUser(token: string) {
+    this._userApiService.getCurrentUser(token).subscribe((user: any) => {
+      this.currentUser$.next(user),
+        (error: any) => {
+          console.log(error);
+        };
     });
   }
 }
