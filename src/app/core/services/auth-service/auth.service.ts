@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
 import { LoginData } from './interfaces/loginData.interface';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { RegistrData } from './interfaces/registrData.interface';
+import { UserService } from '../user-service/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +12,27 @@ import { Subject } from 'rxjs';
 export class AuthService {
   isLoggedOn$ = new Subject();
   token!: string;
-  error$ = new Subject();
+  authError$ = new Subject();
+  registrError$ = new Subject();
+  currentUserId!: string;
+  registrSucces$ = new Subject();
 
   constructor(
     private _authApiService: AuthApiService,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService
   ) {}
+
+  registr(body: RegistrData) {
+    this._authApiService.registration(body).subscribe(
+      (response: any) => (
+        (this.currentUserId = response),
+        this.registrSucces$.next(response),
+        this._userService.getCurrentUser(this.currentUserId)
+      ),
+      (error: any) => this.registrError$.next(error)
+    );
+  }
 
   login(loginData: LoginData) {
     this._authApiService.login(loginData).subscribe(
@@ -24,11 +41,12 @@ export class AuthService {
         this.isLoggedOn$.next(true),
         this._router.navigate(['/main'])
       ),
-      (error) => this.error$.next(error)
+      (error) => this.authError$.next(error)
     );
   }
 
   logout() {
     this.isLoggedOn$.next(false);
+    this._userService.currentUser = {};
   }
 }

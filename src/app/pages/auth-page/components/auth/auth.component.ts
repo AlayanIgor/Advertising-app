@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {
-    this._authService.error$.subscribe((error) => {
+    this._authService.authError$.subscribe((error) => {
       this.error = error;
     });
     this.form = new FormGroup({

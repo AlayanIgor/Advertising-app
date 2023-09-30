@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'new-ad',
     title: 'Новое объявление',
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     loadChildren: () =>
       import('./pages/new-ad-page/new-ad-page.module').then(
         (m) => m.NewAdPageModule
