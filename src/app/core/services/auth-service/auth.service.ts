@@ -26,9 +26,7 @@ export class AuthService {
   registr(body: RegistrData) {
     this._authApiService.registration(body).subscribe(
       (response: any) => (
-        (this.currentUserId = response),
-        this.registrSucces$.next(response),
-        this._userService.getCurrentUser(this.currentUserId)
+        (this.currentUserId = response), this.registrSucces$.next(response)
       ),
       (error: any) => this.registrError$.next(error)
     );
@@ -47,6 +45,6 @@ export class AuthService {
 
   logout() {
     this.isLoggedOn$.next(false);
-    this._userService.currentUser = {};
+    this._userService.currentUser$.next({});
   }
 }
