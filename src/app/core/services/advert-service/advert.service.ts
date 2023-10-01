@@ -3,6 +3,7 @@ import { SearchRequest } from './interfaces/searchRequest.interface';
 import { Advert } from './interfaces/advert.interface';
 import { Subject } from 'rxjs';
 import { AdvertApiService } from './advert-api.service';
+import { UserService } from '../user-service/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,14 @@ import { AdvertApiService } from './advert-api.service';
 export class AdvertService {
   searchAdverts$ = new Subject();
   allAdverts$ = new Subject();
+  myAdverts$ = new Subject();
+  myAdvertsArray!: Advert[];
   searchValue!: string;
   valueOfSearch$ = new Subject();
-  constructor(private _advertApiService: AdvertApiService) {}
+  constructor(
+    private _advertApiService: AdvertApiService,
+    private _userService: UserService
+  ) {}
 
   search(searchValue: string) {
     const searchRequest: SearchRequest = {
@@ -32,5 +38,10 @@ export class AdvertService {
     this._advertApiService.getAdverts(searchRequest).subscribe((data) => {
       this.allAdverts$.next(data);
     });
+  }
+
+  getMyAdverts() {
+    this.myAdvertsArray = this._userService.currentUserObj.adverts;
+    this.myAdverts$.next(this.myAdvertsArray);
   }
 }

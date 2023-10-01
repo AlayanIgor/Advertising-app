@@ -1,8 +1,9 @@
-import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 
 import { AuthService } from 'src/app/core/services/auth-service/auth.service';
-import { User } from 'src/app/core/services/user-service/interfaces/user.interface';
 import { UserService } from 'src/app/core/services/user-service/user.service';
 
 @Component({
@@ -17,7 +18,9 @@ export class TopSectionComponent implements OnInit {
   showUserNavigate = false;
   constructor(
     private _authService: AuthService,
-    private _userSevice: UserService
+    private _userSevice: UserService,
+    private _advertService: AdvertService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -34,8 +37,14 @@ export class TopSectionComponent implements OnInit {
     this.showUserNavigate = !this.showUserNavigate;
   }
 
+  showMyAdverts() {
+    this._advertService.getMyAdverts();
+  }
+
   logout() {
     this._authService.logout();
     this.showUserNavigate = false;
+    this._advertService.getAllAdverts();
+    this._router.navigate(['/main']);
   }
 }

@@ -32,7 +32,7 @@
       </svg>
     </button>
     <ul *ngIf="showUserNavigate" class="userNavigate">
-      <li>Мои объявления</li>
+      <li (click)="showMyAdverts()">Мои объявления</li>
       <li>Настройки</li>
       <li (click)="logout()">Выйти</li>
     </ul>

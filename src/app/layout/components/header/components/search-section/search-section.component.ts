@@ -31,4 +31,8 @@ export class SearchSectionComponent {
   setSearchValue(value: any) {
     this.searchValue = value.target.value;
   }
+
+  getAllAdverts() {
+    this._advertService.getAllAdverts();
+  }
 }

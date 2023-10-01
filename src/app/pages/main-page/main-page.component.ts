@@ -9,6 +9,7 @@ import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.i
 })
 export class MainPageComponent implements OnInit {
   allAdverts: Advert[] = [];
+  showMyAdvertsPage = false;
 
   constructor(private _advertService: AdvertService) {}
 
@@ -16,6 +17,12 @@ export class MainPageComponent implements OnInit {
     this._advertService.getAllAdverts();
     this._advertService.allAdverts$.subscribe((adverts: any) => {
       this.allAdverts = adverts;
+      this.showMyAdvertsPage = false;
+    });
+    this._advertService.myAdverts$.subscribe((adverts: any) => {
+      this.allAdverts = adverts;
+      this.showMyAdvertsPage = true;
+      console.log(this.showMyAdvertsPage);
     });
   }
 }

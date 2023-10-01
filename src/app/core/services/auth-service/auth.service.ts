@@ -43,5 +43,6 @@ export class AuthService {
 
   logout() {
     this.isLoggedOn$.next(false);
+    this.token = '';
   }
 }
