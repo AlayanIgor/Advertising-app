@@ -1,6 +1,6 @@
 <div class="main-centralize-container">
   <h3>Новое объявление</h3>
-  <form>
+  <form [formGroup]="form" (ngSubmit)="sumbit()">
     <p>Выберите категорию <span class="red">*</span></p>
     <input type="text" placeholder="нажмите,чтобы выбрать" />
     <svg
@@ -18,28 +18,50 @@
 
     <label>
       <p>Название объявления <span class="red">*</span></p>
-      <input type="text" name="ad-title" placeholder="Что хотите продать?" />
+      <div
+        class="validators"
+        *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+      >
+        <small *ngIf="form.get('name')?.errors?.['required']"
+          >Обязательное поле</small
+        >
+      </div>
+      <input
+        type="text"
+        placeholder="Что хотите продать?"
+        formControlName="name"
+        maxlength="100"
+      />
     </label>
 
     <label>
       <p>Описание</p>
       <textarea
-        name="ad-description"
         placeholder="Расскажите подробнее о товаре или услуге"
+        formControlName="description"
+        maxlength="300"
       ></textarea>
     </label>
 
     <label>
       <p>Адрес (местопроведения сделки) <span class="red">*</span></p>
+      <div
+        class="validators"
+        *ngIf="form.get('location')?.invalid && form.get('location')?.touched"
+      >
+        <small *ngIf="form.get('location')?.errors?.['required']"
+          >Обязательное поле</small
+        >
+      </div>
       <input
         class="adress"
         type="text"
-        name="adress"
         placeholder="Начните вводить адрес"
+        formControlName="location"
       />
     </label>
 
-    <button class="add-image">
+    <label for="file-upload" class="add-image">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -57,15 +79,65 @@
         />
       </svg>
       Добавить картинки
-    </button>
+    </label>
+    <input
+      type="file"
+      formControlName="images"
+      id="file-upload"
+      accept="image/*"
+      multiple
+    />
+
     <span>Максимум 10 картинок в формате jpeg,png или heic</span>
 
     <label>
-      <p>Цена</p>
-      <input class="price" type="text" name="ad-price" placeholder="0 ₽" />
+      <p>Номер телефона <span class="red">*</span></p>
+      <div
+        class="validators"
+        *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched"
+      >
+        <small *ngIf="form.get('phone')?.errors?.['required']"
+          >Обязательное поле</small
+        >
+      </div>
+      <input
+        type="text"
+        class="price"
+        placeholder="Номер телефона"
+        formControlName="phone"
+        maxlength="12"
+      />
     </label>
 
-    <button class="submit" type="submit">Разместить объявление</button>
+    <label>
+      <p>Цена <span class="red">*</span></p>
+      <div
+        class="validators"
+        *ngIf="form.get('cost')?.invalid && form.get('cost')?.touched"
+      >
+        <small *ngIf="form.get('cost')?.errors?.['required']"
+          >Обязательное поле</small
+        >
+      </div>
+      <input
+        class="price"
+        type="number"
+        placeholder="0 ₽"
+        formControlName="cost"
+        maxlength="12"
+      />
+    </label>
+
+    <button
+      [ngClass]="{
+        submit: !form.invalid,
+        invalid: form.invalid
+      }"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Разместить объявление
+    </button>
   </form>
   <p class="agreement">
     Нажимая кнопку «Разместить объявление» Вы соглашаетесь с
