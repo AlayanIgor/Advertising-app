@@ -39,6 +39,7 @@
 
     <form>
       <input
+        (keyup.enter)="search()"
         (input)="setSearchValue($event)"
         [value]="searchValue"
         class="header-search-input"

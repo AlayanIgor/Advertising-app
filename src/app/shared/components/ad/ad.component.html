@@ -1,7 +1,9 @@
 <li class="main-content-ad">
-  <div class="img"></div>
+  <div class="img">
+    <img [src]="'http://194.87.237.48:5000/Images/' + ad.imagesIds[0]" />
+  </div>
   <p class="ad-name">{{ ad.name | titlecase }}</p>
   <p class="ad-price">{{ ad.cost.toLocaleString() }} ₽</p>
-  <p class="ad-info">Москва, Ленинский проспект</p>
-  <p class="ad-info">Сегодня 14:12</p>
+  <p class="ad-info">{{ ad.location }}</p>
+  <p class="ad-info">{{ ad.createdAt | date : "MMM dd, yyyy 'at' hh:mm a" }}</p>
 </li>

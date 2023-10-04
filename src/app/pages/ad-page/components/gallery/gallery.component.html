@@ -1,9 +1,9 @@
 <div class="ad-visual-section">
   <h3>{{ currentAdvert.name | titlecase }}</h3>
   <div class="ad-main-img"><img src="{{ currentImage }}" /></div>
-  <ul class="ad-img-list">
+  <ul *ngIf="images.length > 1" class="ad-img-list">
     <li (click)="setCurrentImage(i)" *ngFor="let img of images; let i = index">
-      <img src="{{ img.url }}" />
+      <img [src]="img.url" />
     </li>
   </ul>
 </div>
