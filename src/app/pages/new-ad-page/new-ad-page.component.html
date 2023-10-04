@@ -6,23 +6,43 @@
       <span class="red">*</span>
     </p>
     <div class="category">
-      <select (input)="addCategory()" formControlName="categoryId">
+      <select (input)="addSubCategory()" formControlName="categoryId">
         <option [value]="category.id" *ngFor="let category of categories">
           {{ category.name }}
         </option>
       </select>
     </div>
 
-    <div formGroupName="subCategoryId">
-      <div *ngFor="let control of getControls(); let idx = index">
+    <div *ngIf="showFirstControl" formGroupName="subCategoryId">
+      <div *ngFor="let control of getSubCategoryIdControls(); let idx = index">
         <p>Выберите подкатегорию <span class="red">*</span></p>
         <div class="category">
-          <select [formControlName]="idx">
+          <select (input)="addChildOfSubCategory()" [formControlName]="idx">
             <option
               [value]="subCategory.id"
               *ngFor="let subCategory of currentCategory.childs"
             >
               {{ subCategory.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showSecondControl" formGroupName="childOfSubCategoryId">
+      <div
+        *ngFor="
+          let control of getChildOfSubCategoryIdControls();
+          let idx = index
+        "
+      >
+        <p>Выберите подкатегорию <span class="red">*</span></p>
+        <div class="category">
+          <select [formControlName]="idx">
+            <option
+              [value]="childOfSubCategory.id"
+              *ngFor="let childOfSubCategory of currentSubCategory.childs"
+            >
+              {{ childOfSubCategory.name }}
             </option>
           </select>
         </div>

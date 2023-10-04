@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
-import { Category } from 'src/app/core/services/categories-service/inretfaces/category.interface';
+import {
+  Category,
+  MyCategory,
+} from 'src/app/core/services/categories-service/inretfaces/category.interface';
 import { CategoryById } from 'src/app/core/services/categories-service/inretfaces/categoryById.interface';
 
 @Component({
@@ -11,16 +15,23 @@ import { CategoryById } from 'src/app/core/services/categories-service/inretface
 })
 export class NewAdPageComponent implements OnInit {
   form!: FormGroup;
-  categories: Category[] = [];
+  categories: MyCategory[] = [];
   currentCategory!: CategoryById;
+  currentCategory$ = new Subject();
+  currentSubCategory!: CategoryById;
+  currentSubCategory$ = new Subject();
+  showSecondControl: boolean = true;
+  showFirstControl: boolean = true;
 
   constructor(private _categoriesService: CategoriesService) {}
 
   ngOnInit(): void {
+    this._categoriesService.getAllCategories();
     this.categories = this._categoriesService.categories;
     this.form = new FormGroup({
       categoryId: new FormControl(''),
       subCategoryId: new FormArray([]),
+      childOfSubCategoryId: new FormArray([]),
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       location: new FormControl('', [Validators.required]),
@@ -37,36 +48,109 @@ export class NewAdPageComponent implements OnInit {
     this._categoriesService
       .getCategoryById(this.form.value.categoryId)
       .subscribe((category) => {
-        this.currentCategory = category;
+        this.currentCategory$.next(category);
       });
   }
 
-  addCategory() {
+  getChildOfSubCategoriesValues() {
+    this._categoriesService
+      .getCategoryById(this.form.value.subCategoryId[0])
+      .subscribe((category: any) => {
+        this.currentSubCategory$.next(category);
+      });
+  }
+
+  addSubCategory() {
     setTimeout(() => {
       this.getSubCategoriesValues();
     });
     const control = new FormControl('', Validators.required);
-    if ((this.form.get('subCategoryId') as FormArray).length < 1) {
-      (this.form.get('subCategoryId') as FormArray).push(control);
-    }
+    this.currentCategory$.subscribe((category: any) => {
+      this.currentCategory = category;
+      if (
+        (this.form.get('subCategoryId') as FormArray).length < 1 &&
+        this.currentCategory.childs.length
+      ) {
+        (this.form.get('subCategoryId') as FormArray).push(control);
+      }
+      if (this.currentCategory.childs.length) {
+        this.showFirstControl = true;
+      }
+
+      if (!this.currentCategory.childs.length) {
+        this.showFirstControl = false;
+      }
+      this.showSecondControl = false;
+    });
   }
 
-  getControls() {
+  addChildOfSubCategory() {
+    setTimeout(() => {
+      this.getChildOfSubCategoriesValues();
+    });
+    const control = new FormControl('', Validators.required);
+    this.currentSubCategory$.subscribe((category: any) => {
+      this.currentSubCategory = category;
+      if (
+        (this.form.get('childOfSubCategoryId') as FormArray).length < 1 &&
+        this.currentSubCategory.childs.length
+      ) {
+        (this.form.get('childOfSubCategoryId') as FormArray).push(control);
+      }
+      if (this.currentSubCategory.childs.length) {
+        this.showSecondControl = true;
+      }
+      if (!this.currentSubCategory.childs.length) {
+        this.showSecondControl = false;
+      }
+    });
+  }
+
+  getSubCategoryIdControls() {
     return (this.form.get('subCategoryId') as FormArray).controls;
+  }
+
+  getChildOfSubCategoryIdControls() {
+    return (this.form.get('childOfSubCategoryId') as FormArray).controls;
   }
 
   sumbit() {
     let formValue = { ...this.form.value };
-    let formData = {
-      name: formValue.name,
-      description: formValue.description,
-      images: formValue.images,
-      cost: formValue.cost,
-      phone: formValue.phone,
-      location: formValue.location,
-      categoryId: formValue.subCategoryId[0],
-    };
-    console.log(formData);
-    this.form.reset();
+    if (!this.currentCategory.childs.length) {
+      let formData = {
+        name: formValue.name,
+        description: formValue.description,
+        images: formValue.images,
+        cost: formValue.cost,
+        phone: formValue.phone,
+        location: formValue.location,
+        categoryId: formValue.categoryId,
+      };
+      console.log(formData);
+    } else if (this.currentSubCategory.childs.length) {
+      let formData = {
+        name: formValue.name,
+        description: formValue.description,
+        images: formValue.images,
+        cost: formValue.cost,
+        phone: formValue.phone,
+        location: formValue.location,
+        categoryId: formValue.childOfSubCategoryId[0],
+      };
+      console.log(formData);
+    } else {
+      let formData = {
+        name: formValue.name,
+        description: formValue.description,
+        images: formValue.images,
+        cost: formValue.cost,
+        phone: formValue.phone,
+        location: formValue.location,
+        categoryId: formValue.subCategoryId[0],
+      };
+      console.log(formData);
+    }
+
+    // this.form.reset();
   }
 }
