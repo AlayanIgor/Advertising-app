@@ -4,6 +4,7 @@ import { Advert } from './interfaces/advert.interface';
 import { Subject } from 'rxjs';
 import { AdvertApiService } from './advert-api.service';
 import { UserService } from '../user-service/user.service';
+import { User } from '../user-service/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +42,12 @@ export class AdvertService {
   }
 
   getMyAdverts() {
-    this.myAdvertsArray = this._userService.currentUserObj.adverts;
-    this.myAdverts$.next(this.myAdvertsArray);
+    this._userService.currentUser$.subscribe((user: any) => {
+      let myUser: User = user;
+      let myAdverts = myUser.adverts;
+      console.log(myUser);
+      console.log(myAdverts);
+      this.myAdverts$.next(myAdverts);
+    });
   }
 }

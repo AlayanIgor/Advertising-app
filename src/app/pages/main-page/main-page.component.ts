@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
+import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -22,7 +23,6 @@ export class MainPageComponent implements OnInit {
     this._advertService.myAdverts$.subscribe((adverts: any) => {
       this.allAdverts = adverts;
       this.showMyAdvertsPage = true;
-      console.log(this.showMyAdvertsPage);
     });
   }
 }

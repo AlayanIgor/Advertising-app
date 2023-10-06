@@ -17,8 +17,9 @@ div {
 }
 
 svg {
-  display: inline-block;
-  margin-left: 280px;
+  position: absolute;
+  left: 460px;
+  top: 30px;
   cursor: pointer;
 }
 

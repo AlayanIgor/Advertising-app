@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
 import { LoginData } from './interfaces/loginData.interface';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { RegistrData } from './interfaces/registrData.interface';
 import { UserService } from '../user-service/user.service';
 
@@ -10,11 +10,13 @@ import { UserService } from '../user-service/user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedOn$ = new Subject();
-  token!: string;
-  authError$ = new Subject();
+  sessionStorageTokenKey = 'tokenKey';
+  sessionStorageLoginKey = 'loginKey';
   registrError$ = new Subject();
   registrSucces$ = new Subject();
+  authError$ = new Subject();
+  token$ = new Subject();
+  isLoggedOn$ = new Subject();
 
   constructor(
     private _authApiService: AuthApiService,
@@ -32,17 +34,18 @@ export class AuthService {
   login(loginData: LoginData) {
     this._authApiService.login(loginData).subscribe(
       (response: any) => (
-        (this.token = response),
-        this.isLoggedOn$.next(true),
-        this._router.navigate(['/main']),
-        this._userService.getCurrentUser(this.token)
+        this._userService.getCurrentUser(response),
+        sessionStorage.setItem(this.sessionStorageTokenKey, response),
+        sessionStorage.setItem(this.sessionStorageLoginKey, 'true'),
+        this._router.navigate(['/main'])
       ),
       (error) => this.authError$.next(error)
     );
   }
 
   logout() {
-    this.isLoggedOn$.next(false);
-    this.token = '';
+    sessionStorage.setItem(this.sessionStorageLoginKey, '');
+    sessionStorage.setItem(this.sessionStorageTokenKey, '');
+    sessionStorage.setItem(this._userService.sessionStorageUserKey, '');
   }
 }
