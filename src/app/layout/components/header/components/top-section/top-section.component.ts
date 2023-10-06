@@ -36,6 +36,9 @@ export class TopSectionComponent implements OnInit, DoCheck {
       let currentUser = JSON.parse(user);
       let currentUserName = currentUser.name;
       this.currentUser$.next(currentUserName);
+      this._userService.currentUser$.subscribe((user: any) => {
+        this._advertService.myAdvertsArray = JSON.parse(user);
+      });
     });
   }
 

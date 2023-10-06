@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
 import { AuthService } from 'src/app/core/services/auth-service/auth.service';
@@ -20,8 +20,8 @@ export class MainPageComponent implements OnInit {
       this.allAdverts = adverts;
       this.showMyAdvertsPage = false;
     });
-    this._advertService.myAdverts$.subscribe((adverts: any) => {
-      this.allAdverts = adverts;
+    this._advertService.myAdverts$.subscribe((user: any) => {
+      this.allAdverts = user.adverts;
       this.showMyAdvertsPage = true;
     });
   }

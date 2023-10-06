@@ -42,12 +42,6 @@ export class AdvertService {
   }
 
   getMyAdverts() {
-    this._userService.currentUser$.subscribe((user: any) => {
-      let myUser: User = user;
-      let myAdverts = myUser.adverts;
-      console.log(myUser);
-      console.log(myAdverts);
-      this.myAdverts$.next(myAdverts);
-    });
+    this.myAdverts$.next(this.myAdvertsArray);
   }
 }
