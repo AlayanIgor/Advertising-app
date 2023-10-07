@@ -10,7 +10,7 @@ import { CategoryById } from 'src/app/core/services/categories-service/inretface
   templateUrl: './new-ad-page.component.html',
   styleUrls: ['./new-ad-page.component.scss'],
 })
-export class NewAdPageComponent implements OnInit, DoCheck {
+export class NewAdPageComponent implements OnInit {
   form!: FormGroup;
   categories: MyCategory[] = [];
   currentCategory!: CategoryById;
@@ -23,8 +23,9 @@ export class NewAdPageComponent implements OnInit, DoCheck {
   constructor(private _categoriesService: CategoriesService) {}
 
   ngOnInit(): void {
-    this._categoriesService.getAllCategories();
-
+    this._categoriesService.getAllCategories().subscribe((categories: any) => {
+      this.categories = categories.childs;
+    });
     this.form = new FormGroup({
       categoryId: new FormControl(''),
       subCategoryId: new FormArray([]),
@@ -39,10 +40,6 @@ export class NewAdPageComponent implements OnInit, DoCheck {
       ]),
       phone: new FormControl('', [Validators.required]),
     });
-  }
-
-  ngDoCheck(): void {
-    this.categories = this._categoriesService.categories;
   }
 
   getSubCategoriesValues() {

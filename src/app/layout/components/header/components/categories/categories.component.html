@@ -5,8 +5,9 @@
       [categories]="categories"
     ></app-categories-sidebar>
     <app-categories-main
-      [categories]="categories"
+      (chosedCategory)="searchCategory($event)"
       [currentCategory]="currentCategory"
+      [selectedCategory]="selectedCategory"
     ></app-categories-main>
   </div>
 </div>

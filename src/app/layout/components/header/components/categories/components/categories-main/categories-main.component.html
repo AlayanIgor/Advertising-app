@@ -1,6 +1,7 @@
 <h3>
-  {{ currentCategory.title }}
+  {{ selectedCategory.name }}
   <svg
+    *ngIf="selectedCategory"
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
@@ -17,9 +18,9 @@
   </svg>
 </h3>
 <div class="main-content-container">
-  <ul *ngFor="let subCategory of currentCategory.childrens" class="sublist">
-    <li>
-      {{ subCategory.label }}
+  <ul *ngFor="let subCategory of currentCategory" class="sublist">
+    <li (click)="selectCategory(subCategory.id)">
+      {{ subCategory.name }}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="14"
@@ -36,8 +37,11 @@
         />
       </svg>
     </li>
-    <li *ngFor="let childSubCategory of subCategory.childrens">
-      {{ childSubCategory.label }}
+    <li
+      (click)="selectCategory(childSubCategory.id)"
+      *ngFor="let childSubCategory of subCategory.childs"
+    >
+      {{ childSubCategory.name }}
     </li>
   </ul>
 </div>

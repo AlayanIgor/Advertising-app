@@ -1,220 +1,62 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DoCheck,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
+import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
+import { MyCategory } from 'src/app/core/services/categories-service/inretfaces/category.interface';
+import { CategoryById } from 'src/app/core/services/categories-service/inretfaces/categoryById.interface';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
 })
-export class CategoriesComponent {
-  categories = [
-    {
-      title: 'Транспорт',
-      childrens: [
-        {
-          label: 'Автомобили',
-        },
-        {
-          label: 'Мотоциклы и мототехника',
-          childrens: [
-            { label: 'Вездеходы' },
-            { label: 'Картинг' },
-            { label: 'Квадроциклы и багги' },
-            { label: 'Мопеды и скутеры' },
-            { label: 'Мотоциклы' },
-            { label: 'Снегоходы' },
-          ],
-        },
-        {
-          label: 'Грузовики и спецтехника',
-          childrens: [
-            { label: 'Автобусы' },
-            { label: 'Автодома' },
-            { label: 'Автокраны' },
-            { label: 'Бульдозеры' },
-            { label: 'Грузовики' },
-            { label: 'Коммунальная техника' },
-            { label: 'Легкий коммерческий транспорт' },
-            { label: 'Навесное оборудование' },
-            { label: 'Погрузчики' },
-            { label: 'Прицепы' },
-            { label: 'Сельхозтехника' },
-            { label: 'Строительная техника' },
-            { label: 'Техника для лесозаготовки' },
-            { label: 'Тягачи' },
-            { label: 'Экскаваторы' },
-            { label: 'Другое' },
-          ],
-        },
-        {
-          label: 'Водный транспорт',
-          childrens: [
-            { label: 'Вёсельные лодки' },
-            { label: 'Гидроциклы' },
-            { label: 'Катера и яхты' },
-            { label: 'Моторные лодки и моторы' },
-          ],
-        },
-        {
-          label: 'Мотоциклы и мототехника',
-          childrens: [
-            { label: 'Запчасти' },
-            { label: 'Шины, диски колеса' },
-            { label: 'Аудио- и видеотехника' },
-            { label: 'Аксессуары' },
-            { label: 'Тюнинг' },
-            { label: 'Багажники и фаркопы' },
-            { label: 'Инструменты' },
-            { label: 'Прицепы' },
-            { label: 'Экипировка' },
-            { label: 'Масла и автохимия' },
-            { label: 'Противоугонные устройства' },
-            { label: 'GPS-навигаторы' },
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Недвижимость',
-      childrens: [
-        {
-          label: 'Автомобили',
-        },
-        {
-          label: 'Мотоциклы и мототехника',
-          childrens: [
-            { label: 'Вездеходы' },
-            { label: 'Картинг' },
-            { label: 'Квадроциклы и багги' },
-            { label: 'Мопеды и скутеры' },
-            { label: 'Мотоциклы' },
-            { label: 'Снегоходы' },
-          ],
-        },
-        {
-          label: 'Грузовики и спецтехника',
-          childrens: [
-            { label: 'Автобусы' },
-            { label: 'Автодома' },
-            { label: 'Автокраны' },
-            { label: 'Бульдозеры' },
-            { label: 'Грузовики' },
-            { label: 'Коммунальная техника' },
-            { label: 'Легкий коммерческий транспорт' },
-            { label: 'Навесное оборудование' },
-            { label: 'Погрузчики' },
-            { label: 'Прицепы' },
-            { label: 'Сельхозтехника' },
-            { label: 'Строительная техника' },
-            { label: 'Техника для лесозаготовки' },
-            { label: 'Тягачи' },
-            { label: 'Экскаваторы' },
-            { label: 'Другое' },
-          ],
-        },
-        {
-          label: 'Водный транспорт',
-          childrens: [
-            { label: 'Вёсельные лодки' },
-            { label: 'Гидроциклы' },
-            { label: 'Катера и яхты' },
-            { label: 'Моторные лодки и моторы' },
-          ],
-        },
-        {
-          label: 'Мотоциклы и мототехника',
-          childrens: [
-            { label: 'Запчасти' },
-            { label: 'Шины, диски колеса' },
-            { label: 'Аудио- и видеотехника' },
-            { label: 'Аксессуары' },
-            { label: 'Тюнинг' },
-            { label: 'Багажники и фаркопы' },
-            { label: 'Инструменты' },
-            { label: 'Прицепы' },
-            { label: 'Экипировка' },
-            { label: 'Масла и автохимия' },
-            { label: 'Противоугонные устройства' },
-            { label: 'GPS-навигаторы' },
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Работа',
-      childrens: [
-        {
-          label: 'Автомобили',
-        },
-        {
-          label: 'Мотоциклы и мототехника',
-          childrens: [
-            { label: 'Вездеходы' },
-            { label: 'Картинг' },
-            { label: 'Квадроциклы и багги' },
-            { label: 'Мопеды и скутеры' },
-            { label: 'Мотоциклы' },
-            { label: 'Снегоходы' },
-          ],
-        },
-        {
-          label: 'Грузовики и спецтехника',
-          childrens: [
-            { label: 'Автобусы' },
-            { label: 'Автодома' },
-            { label: 'Автокраны' },
-            { label: 'Бульдозеры' },
-            { label: 'Грузовики' },
-            { label: 'Коммунальная техника' },
-            { label: 'Легкий коммерческий транспорт' },
-            { label: 'Навесное оборудование' },
-            { label: 'Погрузчики' },
-            { label: 'Прицепы' },
-            { label: 'Сельхозтехника' },
-            { label: 'Строительная техника' },
-            { label: 'Техника для лесозаготовки' },
-            { label: 'Тягачи' },
-            { label: 'Экскаваторы' },
-            { label: 'Другое' },
-          ],
-        },
-        {
-          label: 'Водный транспорт',
-          childrens: [
-            { label: 'Вёсельные лодки' },
-            { label: 'Гидроциклы' },
-            { label: 'Катера и яхты' },
-            { label: 'Моторные лодки и моторы' },
-          ],
-        },
-        {
-          label: 'Мотоциклы и мототехника',
-          childrens: [
-            { label: 'Запчасти' },
-            { label: 'Шины, диски колеса' },
-            { label: 'Аудио- и видеотехника' },
-            { label: 'Аксессуары' },
-            { label: 'Тюнинг' },
-            { label: 'Багажники и фаркопы' },
-            { label: 'Инструменты' },
-            { label: 'Прицепы' },
-            { label: 'Экипировка' },
-            { label: 'Масла и автохимия' },
-            { label: 'Противоугонные устройства' },
-            { label: 'GPS-навигаторы' },
-          ],
-        },
-      ],
-    },
-  ];
+export class CategoriesComponent implements OnInit {
+  categories: MyCategory[] = [];
 
   selectedCategory!: string;
 
   selectedChildCategory!: string;
 
-  currentCategory: any = this.categories[0];
+  currentCategory: CategoryById[] = [];
+
+  constructor(
+    private _categoriesService: CategoriesService,
+    private _advertService: AdvertService,
+    private _router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this._categoriesService.getAllCategories().subscribe((categories: any) => {
+      this.categories = categories.childs;
+      this.selectCategory(this.categories[0]);
+    });
+  }
 
   selectCategory(category: any) {
-    this.selectedCategory = category.title;
-    this.currentCategory = category;
+    this.selectedCategory = category;
+    this.currentCategory = [];
+    this._categoriesService
+      .getCategoryById(category.id)
+      .subscribe((category: any) => {
+        category.childs.map((childCategory: any) => {
+          this._categoriesService
+            .getCategoryById(childCategory.id)
+            .subscribe((chidlOfChildCategory: any) => {
+              this.currentCategory.push(chidlOfChildCategory);
+            });
+        });
+      });
+  }
+  searchCategory(id: string) {
+    this._advertService.searchByCategory(id);
+    this._router.navigate(['/search']);
+    this._categoriesService.hideCategories$.next(true);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-categories-main',
@@ -6,6 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./categories-main.component.scss'],
 })
 export class CategoriesMainComponent {
-  @Input() categories!: any;
   @Input() currentCategory!: any;
+  @Input() selectedCategory!: any;
+  @Output() chosedCategory = new EventEmitter();
+
+  selectCategory(id: string) {
+    this.chosedCategory.emit(id);
+  }
 }

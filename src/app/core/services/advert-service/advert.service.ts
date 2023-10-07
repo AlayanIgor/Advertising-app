@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { AdvertApiService } from './advert-api.service';
 import { UserService } from '../user-service/user.service';
 import { User } from '../user-service/interfaces/user.interface';
+import { SearchByCategoryRequest } from './interfaces/searchByCategoryRequest.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,18 @@ export class AdvertService {
     this._advertApiService.getAdverts(searchRequest).subscribe((searchData) => {
       this.searchAdverts$.next(searchData);
     });
+  }
+
+  searchByCategory(categoryId: string) {
+    const searchRequest: SearchByCategoryRequest = {
+      showNonActive: true,
+      category: categoryId,
+    };
+    this._advertApiService
+      .getAdvertsByCategory(searchRequest)
+      .subscribe((searchData) => {
+        this.searchAdverts$.next(searchData);
+      });
   }
   getAllAdverts() {
     const searchRequest: SearchRequest = {
