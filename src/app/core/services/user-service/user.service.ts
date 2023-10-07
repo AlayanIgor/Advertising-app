@@ -8,6 +8,8 @@ import { User } from './interfaces/user.interface';
 export class UserService {
   sessionStorageUserKey = 'userKey';
   currentUser$ = new Subject();
+  currentUser!: User;
+  currentUserAdverts$ = new Subject();
 
   constructor(private _userApiService: UserApiService) {}
 
@@ -15,5 +17,9 @@ export class UserService {
     this._userApiService.getCurrentUser(token).subscribe((user: any) => {
       sessionStorage.setItem(this.sessionStorageUserKey, JSON.stringify(user));
     });
+  }
+
+  getMyAdverts() {
+    this.currentUserAdverts$.next(this.currentUser.adverts);
   }
 }

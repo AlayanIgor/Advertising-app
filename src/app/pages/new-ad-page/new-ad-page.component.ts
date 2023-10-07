@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, DoCheck, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
-import {
-  Category,
-  MyCategory,
-} from 'src/app/core/services/categories-service/inretfaces/category.interface';
+import { MyCategory } from 'src/app/core/services/categories-service/inretfaces/category.interface';
 import { CategoryById } from 'src/app/core/services/categories-service/inretfaces/categoryById.interface';
 
 @Component({
@@ -13,7 +10,7 @@ import { CategoryById } from 'src/app/core/services/categories-service/inretface
   templateUrl: './new-ad-page.component.html',
   styleUrls: ['./new-ad-page.component.scss'],
 })
-export class NewAdPageComponent implements OnInit {
+export class NewAdPageComponent implements OnInit, DoCheck {
   form!: FormGroup;
   categories: MyCategory[] = [];
   currentCategory!: CategoryById;
@@ -27,7 +24,7 @@ export class NewAdPageComponent implements OnInit {
 
   ngOnInit(): void {
     this._categoriesService.getAllCategories();
-    this.categories = this._categoriesService.categories;
+
     this.form = new FormGroup({
       categoryId: new FormControl(''),
       subCategoryId: new FormArray([]),
@@ -42,6 +39,10 @@ export class NewAdPageComponent implements OnInit {
       ]),
       phone: new FormControl('', [Validators.required]),
     });
+  }
+
+  ngDoCheck(): void {
+    this.categories = this._categoriesService.categories;
   }
 
   getSubCategoriesValues() {

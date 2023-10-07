@@ -12,8 +12,6 @@ import { User } from '../user-service/interfaces/user.interface';
 export class AdvertService {
   searchAdverts$ = new Subject();
   allAdverts$ = new Subject();
-  myAdverts$ = new Subject();
-  myAdvertsArray!: Advert[];
   searchValue!: string;
   valueOfSearch$ = new Subject();
   constructor(
@@ -39,9 +37,5 @@ export class AdvertService {
     this._advertApiService.getAdverts(searchRequest).subscribe((data) => {
       this.allAdverts$.next(data);
     });
-  }
-
-  getMyAdverts() {
-    this.myAdverts$.next(this.myAdvertsArray);
   }
 }

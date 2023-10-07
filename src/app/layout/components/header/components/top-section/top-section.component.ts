@@ -36,22 +36,29 @@ export class TopSectionComponent implements OnInit, DoCheck {
       let currentUser = JSON.parse(user);
       let currentUserName = currentUser.name;
       this.currentUser$.next(currentUserName);
-      this._userService.currentUser$.subscribe((user: any) => {
-        this._advertService.myAdvertsArray = JSON.parse(user);
-      });
+    });
+    this._userService.currentUser$.subscribe((user: any) => {
+      this._userService.currentUser = JSON.parse(user);
     });
   }
 
   ngDoCheck(): void {
-    this._authService.isLoggedOn$.next(
-      sessionStorage.getItem(this._authService.sessionStorageLoginKey)
-    );
-    this._authService.token$.next(
-      sessionStorage.getItem(this._authService.sessionStorageTokenKey)
-    );
-    this._userService.currentUser$.next(
-      sessionStorage.getItem(this._userService.sessionStorageUserKey)
-    );
+    if (sessionStorage.getItem(this._authService.sessionStorageLoginKey)) {
+      this._authService.isLoggedOn$.next(
+        sessionStorage.getItem(this._authService.sessionStorageLoginKey)
+      );
+    }
+    if (sessionStorage.getItem(this._authService.sessionStorageTokenKey)) {
+      this._authService.token$.next(
+        sessionStorage.getItem(this._authService.sessionStorageTokenKey)
+      );
+    }
+    if (sessionStorage.getItem(this._userService.sessionStorageUserKey)) {
+      this._userService.currentUser$.next(
+        sessionStorage.getItem(this._userService.sessionStorageUserKey)
+      );
+    }
+
     this._authService.isLoggedOn$.subscribe((value) => {
       this.login = value;
     });
@@ -62,7 +69,7 @@ export class TopSectionComponent implements OnInit, DoCheck {
   }
 
   showMyAdverts() {
-    this._advertService.getMyAdverts();
+    this._userService.getMyAdverts();
   }
 
   logout() {
@@ -70,5 +77,8 @@ export class TopSectionComponent implements OnInit, DoCheck {
     this.showUserNavigate = false;
     this._advertService.getAllAdverts();
     this._router.navigate(['/main']);
+    this._authService.isLoggedOn$.next('');
+    this._authService.token$.next('');
+    this._userService.currentUser$.next('');
   }
 }
