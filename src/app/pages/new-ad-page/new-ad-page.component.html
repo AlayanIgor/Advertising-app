@@ -13,7 +13,7 @@
       </select>
     </div>
 
-    <div *ngIf="showFirstControl" formGroupName="subCategoryId">
+    <div formGroupName="subCategoryId">
       <div *ngFor="let control of getSubCategoryIdControls(); let idx = index">
         <p>Выберите подкатегорию <span class="red">*</span></p>
         <div class="category">

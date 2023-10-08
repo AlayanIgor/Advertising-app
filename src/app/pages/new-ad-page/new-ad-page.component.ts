@@ -18,7 +18,6 @@ export class NewAdPageComponent implements OnInit {
   currentSubCategory!: CategoryById;
   currentSubCategory$ = new Subject();
   showSecondControl: boolean = true;
-  showFirstControl: boolean = true;
 
   constructor(private _categoriesService: CategoriesService) {}
 
@@ -65,19 +64,10 @@ export class NewAdPageComponent implements OnInit {
     const control = new FormControl('', Validators.required);
     this.currentCategory$.subscribe((category: any) => {
       this.currentCategory = category;
-      if (
-        (this.form.get('subCategoryId') as FormArray).length < 1 &&
-        this.currentCategory.childs.length
-      ) {
+      if ((this.form.get('subCategoryId') as FormArray).length < 1) {
         (this.form.get('subCategoryId') as FormArray).push(control);
       }
-      if (this.currentCategory.childs.length) {
-        this.showFirstControl = true;
-      }
 
-      if (!this.currentCategory.childs.length) {
-        this.showFirstControl = false;
-      }
       this.showSecondControl = false;
     });
   }
@@ -114,18 +104,7 @@ export class NewAdPageComponent implements OnInit {
 
   sumbit() {
     let formValue = { ...this.form.value };
-    if (!this.currentCategory.childs.length) {
-      let formData = {
-        name: formValue.name,
-        description: formValue.description,
-        images: formValue.images,
-        cost: formValue.cost,
-        phone: formValue.phone,
-        location: formValue.location,
-        categoryId: formValue.categoryId,
-      };
-      console.log(formData);
-    } else if (this.currentSubCategory.childs.length) {
+    if (this.currentSubCategory.childs.length) {
       let formData = {
         name: formValue.name,
         description: formValue.description,
