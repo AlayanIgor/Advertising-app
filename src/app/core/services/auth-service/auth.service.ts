@@ -15,7 +15,7 @@ export class AuthService {
   registrError$ = new Subject();
   registrSucces$ = new Subject();
   authError$ = new Subject();
-  token$ = new Subject();
+  token!: string | null;
   isLoggedOn$ = new Subject();
 
   constructor(
@@ -34,9 +34,9 @@ export class AuthService {
   login(loginData: LoginData) {
     this._authApiService.login(loginData).subscribe(
       (response: any) => (
-        this._userService.getCurrentUser(response),
         sessionStorage.setItem(this.sessionStorageTokenKey, response),
         sessionStorage.setItem(this.sessionStorageLoginKey, 'true'),
+        this._userService.getCurrentUser(response),
         this._router.navigate(['/main'])
       ),
       (error) => this.authError$.next(error)

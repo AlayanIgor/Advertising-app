@@ -14,9 +14,14 @@ export class UserService {
   constructor(private _userApiService: UserApiService) {}
 
   getCurrentUser(token: string) {
-    this._userApiService.getCurrentUser(token).subscribe((user: any) => {
-      sessionStorage.setItem(this.sessionStorageUserKey, JSON.stringify(user));
-    });
+    setTimeout(() => {
+      this._userApiService.getCurrentUser(token).subscribe((user: any) => {
+        sessionStorage.setItem(
+          this.sessionStorageUserKey,
+          JSON.stringify(user)
+        );
+      });
+    }, 100);
   }
 
   getMyAdverts() {

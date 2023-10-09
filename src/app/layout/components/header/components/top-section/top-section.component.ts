@@ -49,8 +49,8 @@ export class TopSectionComponent implements OnInit, DoCheck {
       );
     }
     if (sessionStorage.getItem(this._authService.sessionStorageTokenKey)) {
-      this._authService.token$.next(
-        sessionStorage.getItem(this._authService.sessionStorageTokenKey)
+      this._authService.token = sessionStorage.getItem(
+        this._authService.sessionStorageTokenKey
       );
     }
     if (sessionStorage.getItem(this._userService.sessionStorageUserKey)) {
@@ -78,7 +78,7 @@ export class TopSectionComponent implements OnInit, DoCheck {
     this._advertService.getAllAdverts();
     this._router.navigate(['/main']);
     this._authService.isLoggedOn$.next('');
-    this._authService.token$.next('');
+    this._authService.token = '';
     this._userService.currentUser$.next('');
   }
 }

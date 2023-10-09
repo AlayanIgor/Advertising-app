@@ -6,6 +6,8 @@ import { AdvertApiService } from './advert-api.service';
 import { UserService } from '../user-service/user.service';
 import { User } from '../user-service/interfaces/user.interface';
 import { SearchByCategoryRequest } from './interfaces/searchByCategoryRequest.interface';
+import { NewAdvert } from './interfaces/newAdvert.interface';
+import { AuthService } from '../auth-service/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +19,7 @@ export class AdvertService {
   valueOfSearch$ = new Subject();
   constructor(
     private _advertApiService: AdvertApiService,
-    private _userService: UserService
+    private _authService: AuthService
   ) {}
 
   search(searchValue: string) {
@@ -50,5 +52,9 @@ export class AdvertService {
     this._advertApiService.getAdverts(searchRequest).subscribe((data) => {
       this.allAdverts$.next(data);
     });
+  }
+
+  addNewAdvert(newAdvertObj: NewAdvert) {
+    return this._advertApiService.addNewAdvert(newAdvertObj);
   }
 }

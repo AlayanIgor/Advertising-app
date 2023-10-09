@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,8 +10,10 @@ import { SearchSectionComponent } from './layout/components/header/components/se
 import { CategoriesComponent } from './layout/components/header/components/categories/categories.component';
 import { CategoriesSidebarComponent } from './layout/components/header/components/categories/components/categories-sidebar/categories-sidebar.component';
 import { CategoriesMainComponent } from './layout/components/header/components/categories/components/categories-main/categories-main.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,13 @@ import { FormsModule } from '@angular/forms';
     CategoriesMainComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, DoCheck, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
 import { MyCategory } from 'src/app/core/services/categories-service/inretfaces/category.interface';
 import { CategoryById } from 'src/app/core/services/categories-service/inretfaces/categoryById.interface';
@@ -18,8 +19,12 @@ export class NewAdPageComponent implements OnInit {
   currentSubCategory!: CategoryById;
   currentSubCategory$ = new Subject();
   showSecondControl: boolean = true;
+  imagesArray: File[] = [];
 
-  constructor(private _categoriesService: CategoriesService) {}
+  constructor(
+    private _categoriesService: CategoriesService,
+    private _advertService: AdvertService
+  ) {}
 
   ngOnInit(): void {
     this._categoriesService.getAllCategories().subscribe((categories: any) => {
@@ -102,30 +107,43 @@ export class NewAdPageComponent implements OnInit {
     return (this.form.get('childOfSubCategoryId') as FormArray).controls;
   }
 
+  onImageSelect(event: any) {
+    const images = event.target.files;
+    this.imagesArray = images;
+    console.log(this.imagesArray);
+  }
+
   sumbit() {
     let formValue = { ...this.form.value };
     if (this.currentSubCategory.childs.length) {
       let formData = {
         name: formValue.name,
         description: formValue.description,
-        images: formValue.images,
-        cost: formValue.cost,
+        images: this.imagesArray,
+        cost: formValue.cost.toFixed(2),
         phone: formValue.phone,
         location: formValue.location,
         categoryId: formValue.childOfSubCategoryId[0],
       };
-      console.log(formData);
+      this._advertService.addNewAdvert(formData).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
     } else {
       let formData = {
         name: formValue.name,
         description: formValue.description,
-        images: formValue.images,
-        cost: formValue.cost,
+        images: this.imagesArray,
+        cost: formValue.cost.toFixed(2),
         phone: formValue.phone,
         location: formValue.location,
         categoryId: formValue.subCategoryId[0],
       };
       console.log(formData);
+      this._advertService.addNewAdvert(formData).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
     }
 
     // this.form.reset();

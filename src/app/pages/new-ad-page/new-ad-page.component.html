@@ -114,6 +114,7 @@
       Добавить картинки
     </label>
     <input
+      (change)="onImageSelect($event)"
       type="file"
       formControlName="images"
       id="file-upload"
@@ -138,7 +139,7 @@
         class="price"
         placeholder="Номер телефона"
         formControlName="phone"
-        maxlength="12"
+        maxlength="20"
       />
     </label>
 

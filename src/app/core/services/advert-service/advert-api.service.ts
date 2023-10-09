@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { SearchRequest } from './interfaces/searchRequest.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Advert } from './interfaces/advert.interface';
 import { CurrentAdvert } from './interfaces/currentAdvert.interface';
 import { SearchByCategoryRequest } from './interfaces/searchByCategoryRequest.interface';
+import { NewAdvert } from './interfaces/newAdvert.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -30,4 +31,12 @@ export class AdvertApiService {
       body
     );
   }
+
+  addNewAdvert(body: NewAdvert) {
+    return this._http.post('http://194.87.237.48:5000/Advert', body);
+  }
 }
+
+// , {
+//   headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
+// }
