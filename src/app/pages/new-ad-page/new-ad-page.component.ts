@@ -19,7 +19,7 @@ export class NewAdPageComponent implements OnInit {
   currentSubCategory!: CategoryById;
   currentSubCategory$ = new Subject();
   showSecondControl: boolean = true;
-  imagesArray!: File;
+  images!: any;
 
   constructor(
     private _categoriesService: CategoriesService,
@@ -109,8 +109,8 @@ export class NewAdPageComponent implements OnInit {
   }
 
   onImageSelect(event: any) {
-    const images = event.target.files[0];
-    this.imagesArray = images;
+    // const images = event.target.files[0];
+    this.images = event.target.files;
     // const images = event.target.files;
     // for (let image of images) {
     //   this.imagesArray.push(image);
@@ -124,7 +124,7 @@ export class NewAdPageComponent implements OnInit {
       let formObject = {
         name: formValue.name,
         description: formValue.description,
-        images: this.imagesArray,
+        // images: this.images,
         cost: formValue.cost.toFixed(2),
         email: formValue.email,
         phone: formValue.phone,
@@ -136,6 +136,13 @@ export class NewAdPageComponent implements OnInit {
         (fd, n) => (fd.append(...n), fd),
         new FormData()
       );
+
+      if (this.images.length) {
+        for (let image of this.images) {
+          formData.append('images', image, image.name);
+        }
+      }
+
       console.log(formData.getAll('images'));
 
       this._advertService.addNewAdvert(formData).subscribe(
@@ -146,7 +153,7 @@ export class NewAdPageComponent implements OnInit {
       let formObject = {
         name: formValue.name,
         description: formValue.description,
-        images: this.imagesArray,
+        // images: this.images,
         cost: formValue.cost.toFixed(2),
         email: formValue.email,
         phone: formValue.phone,
@@ -158,6 +165,12 @@ export class NewAdPageComponent implements OnInit {
         (fd, n) => (fd.append(...n), fd),
         new FormData()
       );
+
+      if (this.images.length) {
+        for (let image of this.images) {
+          formData.append('images', image, image.name);
+        }
+      }
       console.log(formData.getAll('images'));
 
       this._advertService.addNewAdvert(formData).subscribe(
@@ -166,6 +179,6 @@ export class NewAdPageComponent implements OnInit {
       );
     }
 
-    this.form.reset();
+    // this.form.reset();
   }
 }
