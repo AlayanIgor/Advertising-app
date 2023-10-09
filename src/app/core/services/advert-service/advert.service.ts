@@ -54,7 +54,7 @@ export class AdvertService {
     });
   }
 
-  addNewAdvert(newAdvertObj: NewAdvert) {
-    return this._advertApiService.addNewAdvert(newAdvertObj);
+  addNewAdvert(newAdvertFormData: any) {
+    return this._advertApiService.addNewAdvert(newAdvertFormData);
   }
 }

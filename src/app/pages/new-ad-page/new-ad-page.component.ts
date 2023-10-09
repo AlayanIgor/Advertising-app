@@ -19,7 +19,7 @@ export class NewAdPageComponent implements OnInit {
   currentSubCategory!: CategoryById;
   currentSubCategory$ = new Subject();
   showSecondControl: boolean = true;
-  imagesArray: File[] = [];
+  imagesArray!: File;
 
   constructor(
     private _categoriesService: CategoriesService,
@@ -34,6 +34,7 @@ export class NewAdPageComponent implements OnInit {
       categoryId: new FormControl(''),
       subCategoryId: new FormArray([]),
       childOfSubCategoryId: new FormArray([]),
+      email: new FormControl(''),
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       location: new FormControl('', [Validators.required]),
@@ -108,44 +109,63 @@ export class NewAdPageComponent implements OnInit {
   }
 
   onImageSelect(event: any) {
-    const images = event.target.files;
+    const images = event.target.files[0];
     this.imagesArray = images;
-    console.log(this.imagesArray);
+    // const images = event.target.files;
+    // for (let image of images) {
+    //   this.imagesArray.push(image);
+    // }
+    // console.log(this.imagesArray);
   }
 
   sumbit() {
     let formValue = { ...this.form.value };
     if (this.currentSubCategory.childs.length) {
-      let formData = {
+      let formObject = {
         name: formValue.name,
         description: formValue.description,
         images: this.imagesArray,
         cost: formValue.cost.toFixed(2),
+        email: formValue.email,
         phone: formValue.phone,
         location: formValue.location,
         categoryId: formValue.childOfSubCategoryId[0],
       };
+
+      const formData = Object.entries(formObject).reduce(
+        (fd, n) => (fd.append(...n), fd),
+        new FormData()
+      );
+      console.log(formData.getAll('images'));
+
       this._advertService.addNewAdvert(formData).subscribe(
-        (response) => console.log(response),
+        (response) => console.log('успех' + response),
         (error) => console.log(error)
       );
     } else {
-      let formData = {
+      let formObject = {
         name: formValue.name,
         description: formValue.description,
         images: this.imagesArray,
         cost: formValue.cost.toFixed(2),
+        email: formValue.email,
         phone: formValue.phone,
         location: formValue.location,
         categoryId: formValue.subCategoryId[0],
       };
-      console.log(formData);
+
+      const formData = Object.entries(formObject).reduce(
+        (fd, n) => (fd.append(...n), fd),
+        new FormData()
+      );
+      console.log(formData.getAll('images'));
+
       this._advertService.addNewAdvert(formData).subscribe(
-        (response) => console.log(response),
+        (response) => console.log('успех' + response),
         (error) => console.log(error)
       );
     }
 
-    // this.form.reset();
+    this.form.reset();
   }
 }

@@ -32,11 +32,7 @@ export class AdvertApiService {
     );
   }
 
-  addNewAdvert(body: NewAdvert) {
+  addNewAdvert(body: any) {
     return this._http.post('http://194.87.237.48:5000/Advert', body);
   }
 }
-
-// , {
-//   headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
-// }

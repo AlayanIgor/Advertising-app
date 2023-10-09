@@ -33,6 +33,10 @@ h3 {
   cursor: pointer;
 }
 
+.sublist li:hover {
+  background: #ececec;
+}
+
 .sublist li:first-child {
   margin-bottom: 7px;
   color: #1e293b;
