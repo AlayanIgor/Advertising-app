@@ -24,6 +24,9 @@ export class SearchPageComponent implements AfterViewInit, DoCheck {
   ngAfterViewInit(): void {
     this._advertService.searchAdverts$.subscribe((adverts: any) => {
       this.ads = adverts;
+      this.ads.sort(function (a, b) {
+        return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+      });
       this.numberOfAdverts = adverts.length;
       this.nothingFinded = adverts.length;
     });
@@ -35,12 +38,12 @@ export class SearchPageComponent implements AfterViewInit, DoCheck {
 
   ngDoCheck(): void {
     if (!this.ads.length) {
-      this._advertService.searchAdverts$.subscribe((adverts: any) => {
-        this.ads = adverts;
-        this.numberOfAdverts = adverts.length;
-        this.nothingFinded = adverts.length;
-      });
     }
+    this._advertService.searchAdverts$.subscribe((adverts: any) => {
+      this.ads = adverts;
+      this.numberOfAdverts = adverts.length;
+      this.nothingFinded = adverts.length;
+    });
   }
 
   allCategories = [
@@ -114,5 +117,23 @@ export class SearchPageComponent implements AfterViewInit, DoCheck {
   choosedCategory!: string;
   selectedCategory(selectedCategory: string) {
     this.choosedCategory = selectedCategory;
+  }
+
+  sortingAdverts(sortedBy: string) {
+    if (sortedBy === 'Новизне') {
+      this.ads.sort(function (a, b) {
+        return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+      });
+    }
+    if (sortedBy === 'Дешевле') {
+      this.ads.sort(function (a, b) {
+        return a.cost - b.cost;
+      });
+    }
+    if (sortedBy === 'Дороже') {
+      this.ads.sort(function (a, b) {
+        return b.cost - a.cost;
+      });
+    }
   }
 }

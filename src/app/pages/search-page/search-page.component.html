@@ -6,7 +6,10 @@
       [allCategories]="allCategories"
     ></app-search-sidebar>
     <div class="content-section">
-      <app-sorting [findedAdverts]="numberOfAdverts"></app-sorting>
+      <app-sorting
+        (sortingAdverts)="sortingAdverts($event)"
+        [findedAdverts]="numberOfAdverts"
+      ></app-sorting>
       <div class="ads">
         <h3 *ngIf="!nothingFinded">
           К сожалению, по вашему запросу ничего не найдено

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sorting',
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class SortingComponent {
   @Input() findedAdverts!: number;
+  @Output() sortingAdverts = new EventEmitter();
   sortedBy = [{ label: 'Новизне' }, { label: 'Дешевле' }, { label: 'Дороже' }];
 
   hideValues = true;
@@ -22,5 +23,6 @@ export class SortingComponent {
     this.selectedValue = this.sortedBy[i].label;
     this.valueForRequest = this.sortedBy[i].label;
     this.showValues();
+    this.sortingAdverts.emit(this.valueForRequest);
   }
 }
