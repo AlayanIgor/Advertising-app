@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserApiService } from './user-api.service';
 import { Observable, Subject } from 'rxjs';
-import { User } from './interfaces/user.interface';
+import { Advert, User } from './interfaces/user.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,13 +9,13 @@ export class UserService {
   sessionStorageUserKey = 'userKey';
   currentUser$ = new Subject();
   currentUser!: User;
-  currentUserAdverts$ = new Subject();
+  currentUserAdverts: Advert[] = [];
 
   constructor(private _userApiService: UserApiService) {}
 
-  getCurrentUser(token: string) {
+  getCurrentUser() {
     setTimeout(() => {
-      this._userApiService.getCurrentUser(token).subscribe((user: any) => {
+      this._userApiService.getCurrentUser().subscribe((user: any) => {
         sessionStorage.setItem(
           this.sessionStorageUserKey,
           JSON.stringify(user)
@@ -25,6 +25,6 @@ export class UserService {
   }
 
   getMyAdverts() {
-    this.currentUserAdverts$.next(this.currentUser.adverts);
+    this.currentUserAdverts = this.currentUser.adverts;
   }
 }

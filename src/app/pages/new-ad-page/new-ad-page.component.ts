@@ -1,10 +1,13 @@
 import { AfterContentInit, Component, DoCheck, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
+import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
 import { MyCategory } from 'src/app/core/services/categories-service/inretfaces/category.interface';
 import { CategoryById } from 'src/app/core/services/categories-service/inretfaces/categoryById.interface';
+import { UserService } from 'src/app/core/services/user-service/user.service';
 
 @Component({
   selector: 'app-new-ad-page',
@@ -20,10 +23,15 @@ export class NewAdPageComponent implements OnInit {
   currentSubCategory$ = new Subject();
   showSecondControl: boolean = true;
   images!: any;
+  succesfullPosting!: any;
+  error!: any;
 
   constructor(
     private _categoriesService: CategoriesService,
-    private _advertService: AdvertService
+    private _advertService: AdvertService,
+    private _userService: UserService,
+    private _router: Router,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -35,9 +43,12 @@ export class NewAdPageComponent implements OnInit {
       subCategoryId: new FormArray([]),
       childOfSubCategoryId: new FormArray([]),
       email: new FormControl(''),
-      name: new FormControl('', [Validators.required]),
-      description: new FormControl(''),
-      location: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      description: new FormControl('', Validators.minLength(4)),
+      location: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
       images: new FormControl(''),
       cost: new FormControl('', [
         Validators.required,
@@ -109,13 +120,16 @@ export class NewAdPageComponent implements OnInit {
   }
 
   onImageSelect(event: any) {
-    // const images = event.target.files[0];
     this.images = event.target.files;
-    // const images = event.target.files;
-    // for (let image of images) {
-    //   this.imagesArray.push(image);
-    // }
-    // console.log(this.imagesArray);
+  }
+
+  resetError() {
+    this.error = '';
+  }
+
+  toMyAdverts() {
+    this._userService.getMyAdverts();
+    this._router.navigate(['/main']);
   }
 
   sumbit() {
@@ -124,7 +138,6 @@ export class NewAdPageComponent implements OnInit {
       let formObject = {
         name: formValue.name,
         description: formValue.description,
-        // images: this.images,
         cost: formValue.cost.toFixed(2),
         email: formValue.email,
         phone: formValue.phone,
@@ -137,23 +150,23 @@ export class NewAdPageComponent implements OnInit {
         new FormData()
       );
 
-      if (this.images.length) {
+      if (this.images) {
         for (let image of this.images) {
           formData.append('images', image, image.name);
         }
       }
 
-      console.log(formData.getAll('images'));
-
       this._advertService.addNewAdvert(formData).subscribe(
-        (response) => console.log('успех' + response),
-        (error) => console.log(error)
+        (response) => (
+          (this.succesfullPosting = response),
+          this._userService.getCurrentUser()
+        ),
+        (error) => (this.error = error)
       );
     } else {
       let formObject = {
         name: formValue.name,
         description: formValue.description,
-        // images: this.images,
         cost: formValue.cost.toFixed(2),
         email: formValue.email,
         phone: formValue.phone,
@@ -166,19 +179,21 @@ export class NewAdPageComponent implements OnInit {
         new FormData()
       );
 
-      if (this.images.length) {
+      if (this.images) {
         for (let image of this.images) {
           formData.append('images', image, image.name);
         }
       }
-      console.log(formData.getAll('images'));
 
       this._advertService.addNewAdvert(formData).subscribe(
-        (response) => console.log('успех' + response),
-        (error) => console.log(error)
+        (response) => (
+          (this.succesfullPosting = response),
+          this._userService.getCurrentUser()
+        ),
+        (error) => (this.error = error)
       );
     }
 
-    // this.form.reset();
+    this.form.reset();
   }
 }

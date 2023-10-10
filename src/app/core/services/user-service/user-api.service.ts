@@ -8,12 +8,7 @@ import { User } from './interfaces/user.interface';
 export class UserApiService {
   constructor(private _http: HttpClient) {}
 
-  getCurrentUser(token: string) {
-    console.log('запрос текущего пользователя');
+  getCurrentUser() {
     return this._http.get<User>('http://194.87.237.48:5000/Users/current');
   }
 }
-
-// {
-//   headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
-// }

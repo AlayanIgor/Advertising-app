@@ -237,3 +237,26 @@ input[type="file"]::file-selector-button {
   left: 280px;
   z-index: 1;
 }
+
+.message {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+  color: #1e293b;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.message a {
+  display: block;
+  color: #3b82f6;
+  cursor: pointer;
+}
+
+.message a:hover {
+  color: #296ddb;
+}

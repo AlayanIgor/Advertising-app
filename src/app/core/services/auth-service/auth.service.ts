@@ -36,7 +36,7 @@ export class AuthService {
       (response: any) => (
         sessionStorage.setItem(this.sessionStorageTokenKey, response),
         sessionStorage.setItem(this.sessionStorageLoginKey, 'true'),
-        this._userService.getCurrentUser(response),
+        this._userService.getCurrentUser(),
         this._router.navigate(['/main'])
       ),
       (error) => this.authError$.next(error)

@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DoCheck,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
 
@@ -7,7 +13,7 @@ import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.i
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss'],
 })
-export class SearchPageComponent implements OnInit, AfterViewInit {
+export class SearchPageComponent implements AfterViewInit, DoCheck {
   ads: Advert[] = [];
   searchValue: string = this._advertService.searchValue;
   numberOfAdverts!: number;
@@ -15,23 +21,31 @@ export class SearchPageComponent implements OnInit, AfterViewInit {
 
   constructor(private _advertService: AdvertService) {}
 
-  ngOnInit() {}
-
   ngAfterViewInit(): void {
-    this._advertService.valueOfSearch$.subscribe((value: any) => {
-      this.searchValue = value;
-    });
-
     this._advertService.searchAdverts$.subscribe((adverts: any) => {
       this.ads = adverts;
       this.numberOfAdverts = adverts.length;
       this.nothingFinded = adverts.length;
     });
+
+    this._advertService.valueOfSearch$.subscribe((value: any) => {
+      this.searchValue = value;
+    });
+  }
+
+  ngDoCheck(): void {
+    if (!this.ads.length) {
+      this._advertService.searchAdverts$.subscribe((adverts: any) => {
+        this.ads = adverts;
+        this.numberOfAdverts = adverts.length;
+        this.nothingFinded = adverts.length;
+      });
+    }
   }
 
   allCategories = [
     {
-      title: 'Животные',
+      title: 'Животныe',
       hide: true,
       childrens: [
         { label: 'Товары для животных' },
