@@ -1,5 +1,6 @@
 <div class="ad-info-section">
   <h3>{{ currentAdvert.cost.toLocaleString() }} ₽</h3>
+
   <button (click)="showPhone()" class="ad-numder-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,6 +21,9 @@
       />
     </svg>
     <p>Показать номер телефона</p>
+  </button>
+  <button *ngIf="showDeleteButton" (click)="deleteAdvert()" class="delete">
+    <p>Удалить объявление</p>
   </button>
   <p>Адрес</p>
   <p class="ad-info-description">{{ currentAdvert.location }}</p>

@@ -18,7 +18,8 @@ import { Image } from 'src/app/pages/ad-page/interfaces/image.interface';
 export class GalleryComponent implements AfterViewInit {
   @Input() currentAdvert!: CurrentAdvert;
   images: Image[] = [];
-  currentImage!: string;
+  currentImage: string =
+    'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png';
 
   ngAfterViewInit(): void {
     this.currentAdvert.imagesIds.map((img) => {
@@ -27,7 +28,9 @@ export class GalleryComponent implements AfterViewInit {
       };
       this.images.push(image);
     });
-    this.currentImage = this.images[0].url;
+    if (this.images.length) {
+      this.currentImage = this.images[0].url;
+    }
   }
 
   setCurrentImage(i: number) {

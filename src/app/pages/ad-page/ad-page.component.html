@@ -1,20 +1,24 @@
 <div class="main-centralize-container">
-  <ul class="breadcrumbs">
-    <li>Севастополь •</li>
-    <li>Электроника •</li>
-    <li>Ноутбуки •</li>
-    <li>Аpple</li>
-  </ul>
-  <div class="ad-section">
-    <app-phone-number
-      *ngIf="showPhone"
-      (hidePhoneNumber)="hidePhoneNumber()"
-      [currentAdvert]="currentAdvert"
-    ></app-phone-number>
-    <app-gallery [currentAdvert]="currentAdvert"></app-gallery>
-    <app-description
-      (showPhoneNumber)="showPhoneNumber()"
-      [currentAdvert]="currentAdvert"
-    ></app-description>
+  <div class="message" *ngIf="succesDelete">Объявление успешно удалено</div>
+  <div *ngIf="!succesDelete">
+    <ul class="breadcrumbs">
+      <li>Севастополь •</li>
+      <li>Электроника •</li>
+      <li>Ноутбуки •</li>
+      <li>Аpple</li>
+    </ul>
+    <div class="ad-section">
+      <app-phone-number
+        *ngIf="showPhone"
+        (hidePhoneNumber)="hidePhoneNumber()"
+        [currentAdvert]="currentAdvert"
+      ></app-phone-number>
+      <app-gallery [currentAdvert]="currentAdvert"></app-gallery>
+      <app-description
+        (delete)="showDeleteMessage($event)"
+        (showPhoneNumber)="showPhoneNumber()"
+        [currentAdvert]="currentAdvert"
+      ></app-description>
+    </div>
   </div>
 </div>

@@ -43,6 +43,7 @@ export class AdvertService {
       .subscribe((searchData) => {
         this.searchAdverts$.next(searchData);
       });
+    this.searchValue = '';
   }
   getAllAdverts() {
     const searchRequest: SearchRequest = {
@@ -56,5 +57,9 @@ export class AdvertService {
 
   addNewAdvert(newAdvertFormData: any) {
     return this._advertApiService.addNewAdvert(newAdvertFormData);
+  }
+
+  deleteAdvert(id: string) {
+    return this._advertApiService.deleteAdvert(id);
   }
 }

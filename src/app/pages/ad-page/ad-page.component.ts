@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdvertApiService } from 'src/app/core/services/advert-service/advert-api.service';
 import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/currentAdvert.interface';
 
@@ -10,22 +10,30 @@ import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/c
 })
 export class AdPageComponent implements OnInit {
   showPhone = false;
-
+  succesDelete!: any;
   currentAdvert!: CurrentAdvert;
 
   constructor(
     private _route: ActivatedRoute,
-    private _advertApiService: AdvertApiService
+    private _advertApiService: AdvertApiService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
-      this._advertApiService
-        .getAdvertById(params['id'])
-        .subscribe((advert: any) => {
+      this._advertApiService.getAdvertById(params['id']).subscribe(
+        (advert: any) => {
           this.currentAdvert = advert;
-        });
+        },
+        (error) => {
+          this._router.navigate(['/main']);
+        }
+      );
     });
+  }
+
+  showDeleteMessage(response: any) {
+    this.succesDelete = response;
   }
 
   showPhoneNumber() {
