@@ -3,7 +3,7 @@
   [hideCategories]="hideCategories"
 ></app-header>
 <div #categoriesBlock *ngIf="!hideCategories">
-  <app-categories></app-categories>
+  <app-categories (hidingCategories)="hidingCategories()"></app-categories>
 </div>
 
 <app-main> </app-main>

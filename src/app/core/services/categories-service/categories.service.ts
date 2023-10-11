@@ -7,7 +7,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoriesService {
-  hideCategories$ = new Subject();
   constructor(private _categoriesApiService: CategoriesApiService) {}
 
   getCategoryById(id: string) {

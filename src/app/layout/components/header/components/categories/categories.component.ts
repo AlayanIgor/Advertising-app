@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
@@ -11,6 +11,7 @@ import { CategoryById } from 'src/app/core/services/categories-service/inretface
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
+  @Output() hidingCategories = new EventEmitter();
   categories: MyCategory[] = [];
 
   selectedCategory!: string;
@@ -50,6 +51,6 @@ export class CategoriesComponent implements OnInit {
   searchCategory(id: string) {
     this._advertService.searchByCategory(id);
     this._router.navigate(['/search']);
-    this._categoriesService.hideCategories$.next(true);
+    this.hidingCategories.emit();
   }
 }

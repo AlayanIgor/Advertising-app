@@ -12,7 +12,7 @@ import { CategoriesService } from '../core/services/categories-service/categorie
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent implements DoCheck {
+export class LayoutComponent {
   hideCategories = true;
 
   constructor(private _categoriesService: CategoriesService) {}
@@ -29,14 +29,6 @@ export class LayoutComponent implements DoCheck {
     }
   }
 
-  ngDoCheck(): void {
-    this._categoriesService.hideCategories$.subscribe((value: any) => {
-      if (!this.hideCategories) {
-        this.hideCategories = value;
-      }
-    });
-  }
-
   showCategories() {
     if (!!this.hideCategories) {
       setTimeout(() => {
@@ -45,5 +37,9 @@ export class LayoutComponent implements DoCheck {
     } else {
       this.hideCategories = !this.hideCategories;
     }
+  }
+
+  hidingCategories() {
+    this.hideCategories = true;
   }
 }
