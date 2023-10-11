@@ -1,9 +1,11 @@
 <div class="main-centralize-container">
   <app-categories-sidebar
+    *ngIf="categories.length"
     (selectCategory)="selectCategory($event)"
     [categories]="categories"
   ></app-categories-sidebar>
   <app-categories-main
+    *ngIf="categories.length"
     (chosedCategory)="searchCategory($event)"
     [currentCategory]="currentCategory"
     [selectedCategory]="selectedCategory"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdvertApiService } from 'src/app/core/services/advert-service/advert-api.service';
 import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/currentAdvert.interface';

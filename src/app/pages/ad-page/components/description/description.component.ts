@@ -16,7 +16,7 @@ import { UserService } from 'src/app/core/services/user-service/user.service';
   templateUrl: './description.component.html',
   styleUrls: ['./description.component.scss'],
 })
-export class DescriptionComponent implements DoCheck {
+export class DescriptionComponent implements OnInit {
   @Input() currentAdvert!: CurrentAdvert;
   @Output() showPhoneNumber = new EventEmitter();
   @Output() delete = new EventEmitter();
@@ -27,7 +27,7 @@ export class DescriptionComponent implements DoCheck {
     private _advertService: AdvertService
   ) {}
 
-  ngDoCheck(): void {
+  ngOnInit() {
     if (this.currentAdvert.user.id === this._userService.currentUser.id) {
       this.showDeleteButton = true;
     }

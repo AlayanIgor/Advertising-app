@@ -2,8 +2,8 @@
   (categoriesShow)="showCategories()"
   [hideCategories]="hideCategories"
 ></app-header>
-<app-categories
-  (hideCategories)="hideCategoriesBlock()"
-  *ngIf="!hideCategories"
-></app-categories>
+<div #categoriesBlock *ngIf="!hideCategories">
+  <app-categories></app-categories>
+</div>
+
 <app-main> </app-main>

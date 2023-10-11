@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  DoCheck,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';

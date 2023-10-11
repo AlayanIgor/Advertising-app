@@ -15,13 +15,12 @@ import { Image } from 'src/app/pages/ad-page/interfaces/image.interface';
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
 })
-export class GalleryComponent implements AfterViewInit {
+export class GalleryComponent implements OnInit {
   @Input() currentAdvert!: CurrentAdvert;
   images: Image[] = [];
-  currentImage: string =
-    'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png';
+  currentImage!: string;
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.currentAdvert.imagesIds.map((img) => {
       let image = {
         url: 'http://194.87.237.48:5000/Images/' + img,
@@ -30,6 +29,9 @@ export class GalleryComponent implements AfterViewInit {
     });
     if (this.images.length) {
       this.currentImage = this.images[0].url;
+    } else {
+      this.currentImage =
+        'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png';
     }
   }
 
