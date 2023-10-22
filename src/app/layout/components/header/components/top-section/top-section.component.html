@@ -33,7 +33,7 @@
     </button>
     <ul *ngIf="showUserNavigate" class="userNavigate">
       <li (click)="showMyAdverts()">Мои объявления</li>
-      <li>Настройки</li>
+      <li (click)="toSettingsPage()">Настройки</li>
       <li (click)="logout()">Выйти</li>
     </ul>
     <button *ngIf="!login" routerLink="/auth" class="login-button">

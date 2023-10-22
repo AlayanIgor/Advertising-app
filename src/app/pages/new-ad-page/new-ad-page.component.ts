@@ -128,7 +128,6 @@ export class NewAdPageComponent implements OnInit {
   }
 
   toMyAdverts() {
-    this._userService.getMyAdverts();
     this._router.navigate(['/my-ads']);
   }
 

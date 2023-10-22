@@ -67,6 +67,14 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'settings',
+    title: 'Настройки',
+    loadChildren: () =>
+      import('./pages/settings-page/settings-page.module').then(
+        (m) => m.SettingsPageModule
+      ),
+  },
+  {
     path: '**',
     redirectTo: '/main',
   },
