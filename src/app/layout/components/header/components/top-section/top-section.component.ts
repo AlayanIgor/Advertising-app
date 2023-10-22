@@ -70,7 +70,7 @@ export class TopSectionComponent implements OnInit, DoCheck {
 
   showMyAdverts() {
     this._userService.getMyAdverts();
-    this._router.navigate(['/main']);
+    this._router.navigate(['/my-ads']);
   }
 
   logout() {

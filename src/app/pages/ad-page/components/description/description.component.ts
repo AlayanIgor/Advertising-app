@@ -44,6 +44,7 @@ export class DescriptionComponent implements OnInit {
         .subscribe((response: any) => {
           this.delete.emit(true);
         });
+      this._userService.getCurrentUser();
     }
   }
 }

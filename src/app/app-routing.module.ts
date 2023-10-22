@@ -59,6 +59,14 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'my-ads',
+    title: 'Мои объявления',
+    loadChildren: () =>
+      import('./pages/my-ads-page/my-ads-page.module').then(
+        (m) => m.MyAdsPageModule
+      ),
+  },
+  {
     path: '**',
     redirectTo: '/main',
   },
