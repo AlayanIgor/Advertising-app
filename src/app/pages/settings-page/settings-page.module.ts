@@ -3,19 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { SettingsPageRoutingModule } from './settings-page-routing.module';
 import { SettingsPageComponent } from './settings-page.component';
-import { LoginSettingsComponent } from './components/login-settings/login-settings.component';
-import { PasswordSettingsComponent } from './components/password-settings/password-settings.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    SettingsPageComponent,
-    LoginSettingsComponent,
-    PasswordSettingsComponent
-  ],
-  imports: [
-    CommonModule,
-    SettingsPageRoutingModule
-  ]
+  declarations: [SettingsPageComponent],
+  imports: [CommonModule, SettingsPageRoutingModule, ReactiveFormsModule],
 })
-export class SettingsPageModule { }
+export class SettingsPageModule {}

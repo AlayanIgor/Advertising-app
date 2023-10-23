@@ -19,17 +19,11 @@ export class RegistrComponent implements OnInit {
     this.form = new FormGroup({
       login: new FormControl('', [
         Validators.minLength(4),
-        Validators.maxLength(64),
         Validators.required,
       ]),
-      name: new FormControl('', [
-        Validators.minLength(4),
-        Validators.maxLength(64),
-        Validators.required,
-      ]),
+      name: new FormControl('', [Validators.minLength(4), Validators.required]),
       password: new FormControl('', [
         Validators.minLength(8),
-        Validators.maxLength(50),
         Validators.required,
       ]),
     });

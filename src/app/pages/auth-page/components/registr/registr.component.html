@@ -56,7 +56,7 @@
       <small *ngIf="form.get('password')?.errors?.['required']"
         >Обязательное поле</small
       >
-      <small *ngIf="form.get('logpasswordin')?.errors?.['minlength']"
+      <small *ngIf="form.get('password')?.errors?.['minlength']"
         >Пароль должен быть не меньше 8 символов</small
       >
     </div>
