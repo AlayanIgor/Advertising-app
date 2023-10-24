@@ -69,10 +69,12 @@ export class TopSectionComponent implements OnInit, DoCheck {
   }
 
   showMyAdverts() {
+    this.showUserNavigate = false;
     this._router.navigate(['/my-ads']);
   }
 
   toSettingsPage() {
+    this.showUserNavigate = false;
     this._router.navigate(['/settings']);
   }
 
@@ -81,8 +83,8 @@ export class TopSectionComponent implements OnInit, DoCheck {
     this.showUserNavigate = false;
     this._advertService.getAllAdverts();
     this._router.navigate(['/main']);
-    this._authService.isLoggedOn$.next('');
-    this._authService.token = '';
-    this._userService.currentUser$.next('');
+    // this._authService.isLoggedOn$.next('');
+    // this._authService.token = '';
+    // this._userService.currentUser$.next('');
   }
 }

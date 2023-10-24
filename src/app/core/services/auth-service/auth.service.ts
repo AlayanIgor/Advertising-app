@@ -47,5 +47,8 @@ export class AuthService {
     sessionStorage.setItem(this.sessionStorageLoginKey, '');
     sessionStorage.setItem(this.sessionStorageTokenKey, '');
     sessionStorage.setItem(this._userService.sessionStorageUserKey, '');
+    this.isLoggedOn$.next('');
+    this.token = '';
+    this._userService.currentUser$.next('');
   }
 }

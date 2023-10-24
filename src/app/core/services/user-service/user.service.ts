@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserApiService } from './user-api.service';
 import { Observable, Subject } from 'rxjs';
 import { Advert, User } from './interfaces/user.interface';
+import { SettingsValue } from './interfaces/settingsValue.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,5 +27,12 @@ export class UserService {
 
   getMyAdverts() {
     this.currentUserAdverts = this.currentUser.adverts;
+  }
+
+  changeCurrentUser(formData: any) {
+    return this._userApiService.changeCurrentUser(
+      this.currentUser.id,
+      formData
+    );
   }
 }

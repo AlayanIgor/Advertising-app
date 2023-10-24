@@ -1,78 +1,88 @@
 <div class="main-centralize-container">
-  <h3>Настройки</h3>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <label>
-      <p>Имя</p>
-      <div
-        class="validators"
-        *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
-      >
-        <small *ngIf="form.get('name')?.errors?.['required']"
-          >Обязательное поле</small
+  <div *ngIf="successfullSetting" class="message">
+    <p>Настройки успешно изменены!</p>
+    <a (click)="toAuth()">Авторизуйтесь с новыми параметрами</a>
+  </div>
+  <div *ngIf="error" class="message">
+    <p>Упс...Что-то пошло не так</p>
+    <a (click)="resetError()">Попробовать снова</a>
+  </div>
+  <div *ngIf="!successfullSetting && !error">
+    <h3>Настройки</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label>
+        <p>Имя</p>
+        <div
+          class="validators"
+          *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
         >
-        <small *ngIf="form.get('name')?.errors?.['minlength']"
-          >Имя должно быть не меньше 4 символов</small
-        >
-      </div>
-      <input
-        type="text"
-        placeholder="Изменить имя"
-        maxlength="64"
-        formControlName="name"
-      />
-    </label>
+          <small *ngIf="form.get('name')?.errors?.['required']"
+            >Обязательное поле</small
+          >
+          <small *ngIf="form.get('name')?.errors?.['minlength']"
+            >Имя должно быть не меньше 4 символов</small
+          >
+        </div>
+        <input
+          type="text"
+          placeholder="Изменить имя"
+          maxlength="64"
+          formControlName="name"
+        />
+      </label>
 
-    <label>
-      <p>Логин</p>
-      <div
-        class="validators"
-        *ngIf="form.get('login')?.invalid && form.get('login')?.touched"
-      >
-        <small *ngIf="form.get('login')?.errors?.['required']"
-          >Обязательное поле</small
+      <label>
+        <p>Логин</p>
+        <div
+          class="validators"
+          *ngIf="form.get('login')?.invalid && form.get('login')?.touched"
         >
-        <small *ngIf="form.get('login')?.errors?.['minlength']"
-          >Логин должен быть не меньше 4 символов</small
-        >
-      </div>
-      <input
-        type="text"
-        placeholder="Изменить логин"
-        maxlength="64"
-        formControlName="login"
-      />
-    </label>
+          <small *ngIf="form.get('login')?.errors?.['required']"
+            >Обязательное поле</small
+          >
+          <small *ngIf="form.get('login')?.errors?.['minlength']"
+            >Логин должен быть не меньше 4 символов</small
+          >
+        </div>
+        <input
+          type="text"
+          placeholder="Изменить логин"
+          maxlength="64"
+          formControlName="login"
+        />
+      </label>
 
-    <label>
-      <p>Пароль</p>
-      <div
-        class="passValidators"
-        *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-      >
-        <small *ngIf="form.get('password')?.errors?.['required']"
-          >Обязательное поле</small
+      <label>
+        <p>Пароль</p>
+        <div
+          class="passValidators"
+          *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
         >
-        <small *ngIf="form.get('password')?.errors?.['minlength']"
-          >Пароль должен быть не меньше 8 символов</small
-        >
-      </div>
-      <input
-        type="text"
-        placeholder="Изменить пароль"
-        maxlength="50"
-        formControlName="password"
-      />
-    </label>
+          <small *ngIf="form.get('password')?.errors?.['required']"
+            >Обязательное поле</small
+          >
+          <small *ngIf="form.get('password')?.errors?.['minlength']"
+            >Пароль должен быть не меньше 8 символов</small
+          >
+        </div>
+        <input
+          type="text"
+          placeholder="Изменить пароль"
+          maxlength="50"
+          formControlName="password"
+        />
+      </label>
 
-    <button
-      [ngClass]="{
-        registr: !form.invalid,
-        invalid: form.invalid
-      }"
-      type="submit"
-      [disabled]="form.invalid"
-    >
-      Сохранить
-    </button>
-  </form>
+      <button
+        [ngClass]="{
+          save: !form.invalid,
+          invalid: form.invalid
+        }"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Сохранить
+      </button>
+    </form>
+  </div>
 </div>
