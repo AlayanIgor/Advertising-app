@@ -96,7 +96,7 @@
         <textarea
           placeholder="Расскажите подробнее о товаре или услуге"
           formControlName="description"
-          maxlength="300"
+          maxlength="250"
         ></textarea>
       </label>
 
@@ -118,6 +118,7 @@
           type="text"
           placeholder="Начните вводить адрес"
           formControlName="location"
+          maxlength="250"
         />
       </label>
 
@@ -160,6 +161,9 @@
           <small *ngIf="form.get('phone')?.errors?.['required']"
             >Обязательное поле</small
           >
+          <small *ngIf="form.get('phone')?.errors?.['pattern']"
+            >Номер телефона должен состоять из цифр</small
+          >
         </div>
         <input
           type="text"
@@ -182,13 +186,15 @@
           <small *ngIf="form.get('cost')?.errors?.['pattern']"
             >Некорректная цена</small
           >
+          <small *ngIf="form.get('cost')?.errors?.['maxlength']"
+            >Цена не должна быть больше 10 знаков</small
+          >
         </div>
         <input
           class="price"
-          type="number"
+          type="text"
           placeholder="0 ₽"
           formControlName="cost"
-          maxlength="12"
         />
       </label>
 

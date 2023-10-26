@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdvertApiService } from 'src/app/core/services/advert-service/advert-api.service';
 import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/currentAdvert.interface';
@@ -12,12 +19,23 @@ export class AdPageComponent implements OnInit {
   showPhone = false;
   succesDelete!: any;
   currentAdvert!: CurrentAdvert;
+  @ViewChild('phonePopup') phonePopup!: ElementRef;
 
   constructor(
     private _route: ActivatedRoute,
     private _advertApiService: AdvertApiService,
     private _router: Router
   ) {}
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (
+      !!this.phonePopup &&
+      !this.phonePopup.nativeElement.contains(event.target)
+    ) {
+      this.showPhone = false;
+    }
+  }
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
@@ -37,7 +55,11 @@ export class AdPageComponent implements OnInit {
   }
 
   showPhoneNumber() {
-    this.showPhone = true;
+    if (!this.showPhone) {
+      setTimeout(() => {
+        this.showPhone = true;
+      });
+    }
   }
 
   hidePhoneNumber() {

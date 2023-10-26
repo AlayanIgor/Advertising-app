@@ -38,7 +38,10 @@ export class DescriptionComponent implements OnInit {
   }
 
   deleteAdvert() {
-    if (this.currentAdvert.user.id === this._userService.currentUser.id) {
+    if (
+      this.currentAdvert.user.id === this._userService.currentUser.id &&
+      confirm('Удалить ?')
+    ) {
       this._advertService
         .deleteAdvert(this.currentAdvert.id)
         .subscribe((response: any) => {

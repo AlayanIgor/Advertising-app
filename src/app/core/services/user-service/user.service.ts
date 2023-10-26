@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserApiService } from './user-api.service';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Advert, User } from './interfaces/user.interface';
-import { SettingsValue } from './interfaces/settingsValue.interface';
 @Injectable({
   providedIn: 'root',
 })

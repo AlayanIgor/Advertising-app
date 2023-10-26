@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
-import { AuthService } from 'src/app/core/services/auth-service/auth.service';
-import { UserService } from 'src/app/core/services/user-service/user.service';
 
 @Component({
   selector: 'app-main',
@@ -12,10 +10,7 @@ import { UserService } from 'src/app/core/services/user-service/user.service';
 export class MainPageComponent implements OnInit {
   allAdverts: Advert[] = [];
 
-  constructor(
-    private _advertService: AdvertService,
-    private _userService: UserService
-  ) {}
+  constructor(private _advertService: AdvertService) {}
 
   ngOnInit() {
     this._advertService.getAllAdverts();

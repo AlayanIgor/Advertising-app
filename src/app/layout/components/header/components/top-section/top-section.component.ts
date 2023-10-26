@@ -83,8 +83,5 @@ export class TopSectionComponent implements OnInit, DoCheck {
     this.showUserNavigate = false;
     this._advertService.getAllAdverts();
     this._router.navigate(['/main']);
-    // this._authService.isLoggedOn$.next('');
-    // this._authService.token = '';
-    // this._userService.currentUser$.next('');
   }
 }

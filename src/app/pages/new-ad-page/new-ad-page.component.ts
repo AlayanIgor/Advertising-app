@@ -51,10 +51,14 @@ export class NewAdPageComponent implements OnInit {
       ]),
       images: new FormControl(''),
       cost: new FormControl('', [
+        Validators.maxLength(10),
         Validators.required,
         Validators.pattern(/^[0-9]\d*$/),
       ]),
-      phone: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[0-9]\d*$/),
+      ]),
     });
   }
 
@@ -137,7 +141,7 @@ export class NewAdPageComponent implements OnInit {
       let formObject = {
         name: formValue.name,
         description: formValue.description,
-        cost: formValue.cost.toFixed(2),
+        cost: Number(formValue.cost).toFixed(2),
         email: formValue.email,
         phone: formValue.phone,
         location: formValue.location,

@@ -2,11 +2,13 @@
   <div class="message" *ngIf="succesDelete">Объявление успешно удалено</div>
   <div *ngIf="!succesDelete">
     <div class="ad-section">
-      <app-phone-number
-        *ngIf="showPhone"
-        (hidePhoneNumber)="hidePhoneNumber()"
-        [currentAdvert]="currentAdvert"
-      ></app-phone-number>
+      <div #phonePopup *ngIf="showPhone">
+        <app-phone-number
+          (hidePhoneNumber)="hidePhoneNumber()"
+          [currentAdvert]="currentAdvert"
+        ></app-phone-number>
+      </div>
+
       <app-gallery
         *ngIf="currentAdvert"
         [currentAdvert]="currentAdvert"
