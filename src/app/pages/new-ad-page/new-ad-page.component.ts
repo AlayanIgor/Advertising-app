@@ -1,7 +1,15 @@
-import { AfterContentInit, Component, DoCheck, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  DoCheck,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AddressService } from 'src/app/core/services/address-service/address.service';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
@@ -25,13 +33,15 @@ export class NewAdPageComponent implements OnInit {
   images!: any;
   succesfullPosting!: any;
   error!: any;
+  addressObj!: any;
+  addressClues: any[] = [];
 
   constructor(
     private _categoriesService: CategoriesService,
     private _advertService: AdvertService,
     private _userService: UserService,
     private _router: Router,
-    private _authService: AuthService
+    private _addressService: AddressService
   ) {}
 
   ngOnInit(): void {
@@ -133,6 +143,18 @@ export class NewAdPageComponent implements OnInit {
 
   toMyAdverts() {
     this._router.navigate(['/my-ads']);
+  }
+
+  getAddress(address: any) {
+    let addressObj = {
+      query: address.target.value,
+    };
+    this._addressService
+      .getAddress(JSON.stringify(addressObj))
+      .subscribe((clues) => {
+        this.addressObj = clues;
+        this.addressClues = this.addressObj.suggestions;
+      });
   }
 
   sumbit() {

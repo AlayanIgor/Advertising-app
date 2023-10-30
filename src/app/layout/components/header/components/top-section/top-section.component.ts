@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  DoCheck,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';

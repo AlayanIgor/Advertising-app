@@ -114,12 +114,18 @@
           >
         </div>
         <input
+          (input)="getAddress($event)"
           class="adress"
           type="text"
           placeholder="Начните вводить адрес"
           formControlName="location"
           maxlength="250"
         />
+        <ul *ngIf="addressClues.length" class="addressClues">
+          <li *ngFor="let clue of addressClues; let i = index">
+            {{ clue.value }}
+          </li>
+        </ul>
       </label>
 
       <label for="file-upload" class="add-image">

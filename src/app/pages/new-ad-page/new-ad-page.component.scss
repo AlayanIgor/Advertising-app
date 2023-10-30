@@ -187,20 +187,6 @@ input[type="file"]::file-selector-button {
   margin: 0;
 }
 
-// .category {
-//   display: flex;
-//   align-items: center;
-//   width: 305px;
-//   height: 48px;
-//   margin-bottom: 16px;
-//   padding: 12px;
-//   border-radius: 4px;
-//   border: 1px solid #cbd5e1;
-//   background: #fff;
-//   cursor: pointer;
-//   outline: none;
-// }
-
 .category {
   position: relative;
   margin-bottom: 16px;
@@ -259,4 +245,26 @@ input[type="file"]::file-selector-button {
 
 .message a:hover {
   color: #296ddb;
+}
+
+.addressClues {
+  position: relative;
+  margin-top: -30px;
+  padding-top: 5px;
+  width: 832px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
+  z-index: 10;
+}
+
+.addressClues li {
+  padding-left: 15px;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.addressClues li:hover {
+  background: #e4e3e3;
 }
