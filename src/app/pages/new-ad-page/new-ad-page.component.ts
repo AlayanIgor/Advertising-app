@@ -3,6 +3,7 @@ import {
   Component,
   DoCheck,
   ElementRef,
+  HostListener,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -35,6 +36,7 @@ export class NewAdPageComponent implements OnInit {
   error!: any;
   addressObj!: any;
   addressClues: any[] = [];
+  autocompleteAddress!: boolean;
 
   constructor(
     private _categoriesService: CategoriesService,
@@ -43,6 +45,16 @@ export class NewAdPageComponent implements OnInit {
     private _router: Router,
     private _addressService: AddressService
   ) {}
+
+  @ViewChild('addressInput') addressInput!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (!this.addressInput.nativeElement.contains(event.target)) {
+      this.autocompleteAddress = true;
+      this.addressClues = [];
+    }
+  }
 
   ngOnInit(): void {
     this._categoriesService.getAllCategories().subscribe((categories: any) => {
@@ -155,6 +167,11 @@ export class NewAdPageComponent implements OnInit {
         this.addressObj = clues;
         this.addressClues = this.addressObj.suggestions;
       });
+  }
+
+  setAddress(i: number) {
+    this.autocompleteAddress = false;
+    this.form.controls['location'].setValue(this.addressClues[i].value);
   }
 
   sumbit() {

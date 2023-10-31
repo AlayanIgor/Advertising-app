@@ -104,7 +104,11 @@
         <p>Адрес (местопроведения сделки) <span class="red">*</span></p>
         <div
           class="validators"
-          *ngIf="form.get('location')?.invalid && form.get('location')?.touched"
+          *ngIf="
+            form.get('location')?.invalid &&
+            form.get('location')?.touched &&
+            autocompleteAddress
+          "
         >
           <small *ngIf="form.get('location')?.errors?.['required']"
             >Обязательное поле</small
@@ -114,6 +118,7 @@
           >
         </div>
         <input
+          #addressInput
           (input)="getAddress($event)"
           class="adress"
           type="text"
@@ -122,7 +127,10 @@
           maxlength="250"
         />
         <ul *ngIf="addressClues.length" class="addressClues">
-          <li *ngFor="let clue of addressClues; let i = index">
+          <li
+            (click)="setAddress(i)"
+            *ngFor="let clue of addressClues; let i = index"
+          >
             {{ clue.value }}
           </li>
         </ul>
