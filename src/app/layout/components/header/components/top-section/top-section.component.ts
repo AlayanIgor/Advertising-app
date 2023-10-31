@@ -1,4 +1,12 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
@@ -22,6 +30,18 @@ export class TopSectionComponent implements OnInit, DoCheck {
     private _advertService: AdvertService,
     private _router: Router
   ) {}
+
+  @ViewChild('userNavigate') userNavigate!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    if (
+      !!this.userNavigate &&
+      !this.userNavigate.nativeElement.contains(event.target)
+    ) {
+      this.showUserNavigate = false;
+    }
+  }
 
   ngOnInit(): void {
     this._userService.currentUser$.subscribe((user: any) => {
@@ -57,7 +77,13 @@ export class TopSectionComponent implements OnInit, DoCheck {
   }
 
   showNavigate() {
-    this.showUserNavigate = !this.showUserNavigate;
+    if (!this.showUserNavigate) {
+      setTimeout(() => {
+        this.showUserNavigate = !this.showUserNavigate;
+      });
+    } else {
+      this.showUserNavigate = !this.showUserNavigate;
+    }
   }
 
   showMyAdverts() {

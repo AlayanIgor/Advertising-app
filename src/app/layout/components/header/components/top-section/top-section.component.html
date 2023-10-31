@@ -31,7 +31,7 @@
         />
       </svg>
     </button>
-    <ul *ngIf="showUserNavigate" class="userNavigate">
+    <ul #userNavigate *ngIf="showUserNavigate" class="userNavigate">
       <li (click)="showMyAdverts()">Мои объявления</li>
       <li (click)="toSettingsPage()">Настройки</li>
       <li (click)="logout()">Выйти</li>
