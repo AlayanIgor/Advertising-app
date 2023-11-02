@@ -5,38 +5,31 @@ import { Advert } from './interfaces/advert.interface';
 import { CurrentAdvert } from './interfaces/currentAdvert.interface';
 import { SearchByCategoryRequest } from './interfaces/searchByCategoryRequest.interface';
 import { NewAdvert } from './interfaces/newAdvert.interface';
+import { Urls } from '../../urls/urls';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdvertApiService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _urls: Urls) {}
 
   getAdverts(body: SearchRequest) {
-    return this._http.post<Advert[]>(
-      'http://194.87.237.48:5000/Advert/search',
-      body
-    );
+    return this._http.post<Advert[]>(this._urls.searchAdverts, body);
   }
 
   getAdvertById(id: string) {
-    return this._http.get<CurrentAdvert>(
-      `http://194.87.237.48:5000/Advert/${id}`
-    );
+    return this._http.get<CurrentAdvert>(this._urls.advertById + id);
   }
 
   getAdvertsByCategory(body: SearchByCategoryRequest) {
-    return this._http.post<Advert[]>(
-      'http://194.87.237.48:5000/Advert/search',
-      body
-    );
+    return this._http.post<Advert[]>(this._urls.searchAdverts, body);
   }
 
   addNewAdvert(body: any) {
-    return this._http.post('http://194.87.237.48:5000/Advert', body);
+    return this._http.post(this._urls.postAdvert, body);
   }
 
   deleteAdvert(id: string) {
-    return this._http.delete(`http://194.87.237.48:5000/Advert/${id}`);
+    return this._http.delete(this._urls.advertById + id);
   }
 }
