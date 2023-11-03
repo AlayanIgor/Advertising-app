@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from './interfaces/user.interface';
-import { SettingsValue } from './interfaces/settingsValue.interface';
 import { Urls } from '../../urls/urls';
 
 @Injectable({

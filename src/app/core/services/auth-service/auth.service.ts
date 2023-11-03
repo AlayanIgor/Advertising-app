@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
 import { LoginData } from './interfaces/loginData.interface';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { RegistrData } from './interfaces/registrData.interface';
 import { UserService } from '../user-service/user.service';
 

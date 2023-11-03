@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'new-ad',
     title: 'Новое объявление',
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./pages/new-ad-page/new-ad-page.module').then(
         (m) => m.NewAdPageModule
@@ -61,6 +61,7 @@ const routes: Routes = [
   {
     path: 'my-ads',
     title: 'Мои объявления',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./pages/my-ads-page/my-ads-page.module').then(
         (m) => m.MyAdsPageModule
@@ -69,6 +70,7 @@ const routes: Routes = [
   {
     path: 'settings',
     title: 'Настройки',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./pages/settings-page/settings-page.module').then(
         (m) => m.SettingsPageModule

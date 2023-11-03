@@ -1,12 +1,4 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  DoCheck,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { CurrentAdvert } from 'src/app/core/services/advert-service/interfaces/currentAdvert.interface';
 import { Image } from 'src/app/pages/ad-page/interfaces/image.interface';
 

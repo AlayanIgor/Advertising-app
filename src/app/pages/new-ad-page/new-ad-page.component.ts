@@ -1,7 +1,5 @@
 import {
-  AfterContentInit,
   Component,
-  DoCheck,
   ElementRef,
   HostListener,
   OnInit,
@@ -12,7 +10,6 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AddressService } from 'src/app/core/services/address-service/address.service';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
-import { AuthService } from 'src/app/core/services/auth-service/auth.service';
 import { CategoriesService } from 'src/app/core/services/categories-service/categories.service';
 import { MyCategory } from 'src/app/core/services/categories-service/inretfaces/category.interface';
 import { CategoryById } from 'src/app/core/services/categories-service/inretfaces/categoryById.interface';

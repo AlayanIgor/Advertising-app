@@ -1,10 +1,4 @@
-import {
-  Component,
-  DoCheck,
-  ElementRef,
-  HostListener,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { CategoriesService } from '../core/services/categories-service/categories.service';
 
 @Component({

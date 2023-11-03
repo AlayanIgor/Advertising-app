@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  DoCheck,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { AfterViewInit, Component, DoCheck } from '@angular/core';
 import { AdvertService } from 'src/app/core/services/advert-service/advert.service';
 import { Advert } from 'src/app/core/services/advert-service/interfaces/advert.interface';
 

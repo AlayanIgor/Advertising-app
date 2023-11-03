@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MyCategory } from './inretfaces/category.interface';
 import { CategoriesApiService } from './categories-api.service';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
