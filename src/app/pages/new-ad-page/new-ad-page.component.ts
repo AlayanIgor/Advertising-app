@@ -167,7 +167,9 @@ export class NewAdPageComponent implements OnInit {
   }
 
   setAddress(i: number) {
-    this.autocompleteAddress = false;
+    setTimeout(() => {
+      this.autocompleteAddress = false;
+    });
     this.form.controls['location'].setValue(this.addressClues[i].value);
   }
 
@@ -206,7 +208,7 @@ export class NewAdPageComponent implements OnInit {
       let formObject = {
         name: formValue.name,
         description: formValue.description,
-        cost: formValue.cost.toFixed(2),
+        cost: Number(formValue.cost).toFixed(2),
         email: formValue.email,
         phone: formValue.phone,
         location: formValue.location,

@@ -46,19 +46,3 @@ export const authGuard: CanActivateFn = (
   const auth = inject(AuthGurd);
   return auth.canActivate(route, state);
 };
-
-// let isLoggedOn = false;
-
-// export const authGuard: CanActivateFn = (
-//   route: ActivatedRouteSnapshot,
-//   state: RouterStateSnapshot
-// ): | Observable<boolean | UrlTree>
-// | Promise<boolean | UrlTree>
-// | boolean
-// | UrlTree => {
-//   const auth = inject(AuthService);
-//   auth.isLoggedOn$.subscribe((value: any) => {
-//     isLoggedOn = value
-//   });
-//   return isLoggedOn;
-// };
