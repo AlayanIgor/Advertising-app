@@ -17,12 +17,16 @@ export class SearchPageComponent implements AfterViewInit, DoCheck {
 
   ngAfterViewInit(): void {
     this._advertService.searchAdverts$.subscribe((adverts: any) => {
-      this.ads = adverts;
-      this.ads.sort(function (a, b) {
-        return Date.parse(a.createdAt) - Date.parse(b.createdAt);
-      });
-      this.numberOfAdverts = adverts.length;
-      this.nothingFinded = adverts.length;
+      if (!!adverts) {
+        this.ads = adverts;
+        this.ads.sort(function (a, b) {
+          return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+        });
+        this.numberOfAdverts = adverts.length;
+        this.nothingFinded = adverts.length;
+      } else {
+        this.ngAfterViewInit();
+      }
     });
 
     this._advertService.valueOfSearch$.subscribe((value: any) => {

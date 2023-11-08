@@ -49,7 +49,10 @@ export class NewAdPageComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onClick(event: Event) {
     if (!this.addressInput.nativeElement.contains(event.target)) {
-      if (!this.addressList.nativeElement.contains(event.target)) {
+      if (
+        !!this.addressList &&
+        !this.addressList.nativeElement.contains(event.target)
+      ) {
         this.autocompleteAddress = true;
       }
 
@@ -148,6 +151,7 @@ export class NewAdPageComponent implements OnInit {
 
   onImageSelect(event: any) {
     this.images = event.target.files;
+    console.log('image works');
   }
 
   resetError() {
