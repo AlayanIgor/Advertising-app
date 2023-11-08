@@ -24,9 +24,10 @@ class AuthGurd {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this._authService.isLoggedOn$.subscribe((value: any) => {
-      this.isLoggedOn = value;
-    });
+    // this._authService.isLoggedOn$.subscribe((value: any) => {
+    //   this.isLoggedOn = value;
+    // });
+    this.isLoggedOn = this._authService.isLoggedOn;
     if (this.isLoggedOn) {
       return true;
     } else {

@@ -23,15 +23,17 @@ export class DescriptionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._authService.isLoggedOn$.subscribe((isLoggedOn: any) => {
-      this.isLoggedOn = isLoggedOn;
-      if (
-        this.currentAdvert.user.id === this._userService.currentUser.id &&
-        this.isLoggedOn
-      ) {
-        this.showDeleteButton = true;
-      }
-    });
+    // this._authService.isLoggedOn$.subscribe((isLoggedOn: any) => {
+    //   this.isLoggedOn = isLoggedOn;
+
+    // });
+    this.isLoggedOn = this._authService.isLoggedOn;
+    if (
+      this.currentAdvert.user.id === this._userService.currentUser.id &&
+      this.isLoggedOn
+    ) {
+      this.showDeleteButton = true;
+    }
   }
 
   showPhone() {

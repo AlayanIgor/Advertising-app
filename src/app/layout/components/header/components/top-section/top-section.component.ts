@@ -52,12 +52,35 @@ export class TopSectionComponent implements OnInit, DoCheck {
     this._userService.currentUser$.subscribe((user: any) => {
       this._userService.currentUser = JSON.parse(user);
     });
+    window.addEventListener('load', () => {
+      if (sessionStorage.getItem(this._authService.sessionStorageLoginKey)) {
+        // this._authService.isLoggedOn$.next(
+        //   sessionStorage.getItem(this._authService.sessionStorageLoginKey)
+        // );
+        this._authService.isLoggedOn = !!sessionStorage.getItem(
+          this._authService.sessionStorageLoginKey
+        );
+      }
+      if (sessionStorage.getItem(this._authService.sessionStorageTokenKey)) {
+        this._authService.token = sessionStorage.getItem(
+          this._authService.sessionStorageTokenKey
+        );
+      }
+      if (sessionStorage.getItem(this._userService.sessionStorageUserKey)) {
+        this._userService.currentUser$.next(
+          sessionStorage.getItem(this._userService.sessionStorageUserKey)
+        );
+      }
+    });
   }
 
   ngDoCheck(): void {
     if (sessionStorage.getItem(this._authService.sessionStorageLoginKey)) {
-      this._authService.isLoggedOn$.next(
-        sessionStorage.getItem(this._authService.sessionStorageLoginKey)
+      // this._authService.isLoggedOn$.next(
+      //   sessionStorage.getItem(this._authService.sessionStorageLoginKey)
+      // );
+      this._authService.isLoggedOn = !!sessionStorage.getItem(
+        this._authService.sessionStorageLoginKey
       );
     }
     if (sessionStorage.getItem(this._authService.sessionStorageTokenKey)) {
@@ -71,9 +94,10 @@ export class TopSectionComponent implements OnInit, DoCheck {
       );
     }
 
-    this._authService.isLoggedOn$.subscribe((value) => {
-      this.login = value;
-    });
+    // this._authService.isLoggedOn$.subscribe((value) => {
+    //   this.login = value;
+    // });
+    this.login = this._authService.isLoggedOn;
   }
 
   showNavigate() {

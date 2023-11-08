@@ -126,7 +126,7 @@
           formControlName="location"
           maxlength="250"
         />
-        <ul *ngIf="addressClues.length" class="addressClues">
+        <ul #addressList *ngIf="addressClues.length" class="addressClues">
           <li
             (click)="setAddress(i)"
             *ngFor="let clue of addressClues; let i = index"

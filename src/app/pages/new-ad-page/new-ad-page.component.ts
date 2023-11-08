@@ -44,11 +44,15 @@ export class NewAdPageComponent implements OnInit {
   ) {}
 
   @ViewChild('addressInput') addressInput!: ElementRef;
+  @ViewChild('addressList') addressList!: ElementRef;
 
   @HostListener('document:click', ['$event'])
   onClick(event: Event) {
     if (!this.addressInput.nativeElement.contains(event.target)) {
-      this.autocompleteAddress = true;
+      if (!this.addressList.nativeElement.contains(event.target)) {
+        this.autocompleteAddress = true;
+      }
+
       this.addressClues = [];
     }
   }
@@ -167,9 +171,6 @@ export class NewAdPageComponent implements OnInit {
   }
 
   setAddress(i: number) {
-    setTimeout(() => {
-      this.autocompleteAddress = false;
-    });
     this.form.controls['location'].setValue(this.addressClues[i].value);
   }
 

@@ -16,7 +16,8 @@ export class AuthService {
   registrSucces$ = new Subject();
   authError$ = new Subject();
   token!: string | null;
-  isLoggedOn$ = new Subject();
+  // isLoggedOn$ = new Subject();
+  isLoggedOn: boolean = false;
 
   constructor(
     private _authApiService: AuthApiService,
@@ -38,9 +39,10 @@ export class AuthService {
         sessionStorage.setItem(this.sessionStorageLoginKey, 'true'),
         this._userService.getCurrentUser(),
         this._router.navigate(['/main']),
-        this.isLoggedOn$.next(
-          sessionStorage.getItem(this.sessionStorageLoginKey)
-        )
+        // this.isLoggedOn$.next(
+        //   sessionStorage.getItem(this.sessionStorageLoginKey)
+        // )
+        (this.isLoggedOn = true)
       ),
       (error) => this.authError$.next(error)
     );
@@ -50,7 +52,8 @@ export class AuthService {
     sessionStorage.setItem(this.sessionStorageLoginKey, '');
     sessionStorage.setItem(this.sessionStorageTokenKey, '');
     sessionStorage.setItem(this._userService.sessionStorageUserKey, '');
-    this.isLoggedOn$.next('');
+    // this.isLoggedOn$.next('');
+    this.isLoggedOn = false;
     this.token = '';
     this._userService.currentUser$.next('');
   }
